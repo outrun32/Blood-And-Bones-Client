@@ -4,20 +4,6 @@ using UnityEngine;
 
 public class InputViewMobile : MonoBehaviour
 {
-    public static InputViewMobile instance = null;
-
-    private void Awake()
-    {
-        if(instance != null)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            instance = this;
-        }
-    }
-
     [SerializeField]private Joystick _joystick;
     public Joystick Joystick => _joystick;
 

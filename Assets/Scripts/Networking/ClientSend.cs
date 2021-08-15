@@ -39,7 +39,7 @@ public class ClientSend : MonoBehaviour
                 _packet.Write(axis);
             }
             _packet.Write(isJumping);
-            _packet.Write(GameManager.players[Client.instance.myId].transform.rotation);
+            _packet.Write(GameManager.Players[Client.instance.myId].transform.rotation);
 
             SendUDPData(_packet);
         }

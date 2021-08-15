@@ -237,9 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0632ef62ba7256b44bbe16433a5cce6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  username: 
-  clientController: {fileID: -3075861507353177344}
+  _clientController: {fileID: -3075861507353177344}
 --- !u!114 &-3075861507353177344
 MonoBehaviour:
   m_ObjectHideFlags: 0

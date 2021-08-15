@@ -9,7 +9,7 @@ public class NPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        axis = _controller.joyAxis;
+        axis = _controller.JoyAxis;
         SendInputToServer();
     }
 
@@ -20,7 +20,7 @@ public class NPlayerController : MonoBehaviour
             axis.x,
             axis.y
         };
-        bool _isJumping = _controller.isJumped;
+        bool _isJumping = _controller.IsJumped;
         ClientSend.PlayerMovement(_inputs, _isJumping);
     }
 }

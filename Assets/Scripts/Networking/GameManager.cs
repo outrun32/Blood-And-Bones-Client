@@ -4,41 +4,46 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager instance;
+    private static GameManager _instance;
+    public static GameManager Instance => _instance;
+    private PlayerController _playerController;
+    [SerializeField] private CameraController _cameraController;
+    [SerializeField] private InputViewMobile _inputViewMobile;
 
-    public static Dictionary<int, PlayerManager> players = new Dictionary<int, PlayerManager>();
+    public static Dictionary<int, PlayerManager> Players = new Dictionary<int, PlayerManager>();
 
-    public GameObject localPlayerPrefab;
-    public GameObject playerPrefab;
+    [SerializeField] private PlayerController _localPlayerPrefab;
+    [SerializeField] private PlayerManager _playerPrefab;
 
     private void Awake()
     {
-        if (instance == null)
+        if (_instance == null)
         {
-            instance = this;
+            _instance = this;
         }
-        else if (instance != this)
+        else if (_instance != this)
         {
-            Debug.Log("Instance already exists, destroying object!");
+            Debug.LogError("Instance already exists, destroying object!");
             Destroy(this);
         }
     }
-
-    //Спавн игроков по префабам, можно будет здесь ещё плюшек запилить.
-    public void SpawnPlayer(int _id, string _username, Vector3 _position, Quaternion _rotation)
+    public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation)
     {
-        GameObject _player;
-        if (_id == Client.instance.myId)
+        PlayerManager player;
+        if (id == Client.instance.myId)
         {
-            _player = Instantiate(localPlayerPrefab, _position, _rotation);
+            _playerController = Instantiate(_localPlayerPrefab, position, rotation);
+            player = _playerController.PlayerManager;
+            _playerController.SetCameraController(_cameraController);
+            _playerController.SetInputViewMobile(_inputViewMobile);
         }
         else
         {
-            _player = Instantiate(playerPrefab, _position, _rotation);
+            player = Instantiate(_playerPrefab, position, rotation);
         }
 
-        _player.GetComponent<PlayerManager>().id = _id;
-        _player.GetComponent<PlayerManager>().username = _username;
-        players.Add(_id, _player.GetComponent<PlayerManager>());
+        player.SetID(id);;
+        player.SetUsername(username);
+        Players.Add(id, player);
     }
 }

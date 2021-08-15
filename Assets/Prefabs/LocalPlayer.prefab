@@ -239,9 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0632ef62ba7256b44bbe16433a5cce6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  username: 
-  clientController: {fileID: 6613146243598012334}
+  _clientController: {fileID: 6613146243598012334}
 --- !u!114 &6277587169371639174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,8 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2983ae4892c20ee4998d3e0e036cf611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sInputControllerPC: {fileID: 11400000, guid: 9ea6795a39525f7479e8748b17503775,
-    type: 2}
+  _sInputControllerPC: {fileID: 11400000, guid: 9ea6795a39525f7479e8748b17503775, type: 2}
   _isMobile: 1
   nCameraController: {fileID: 0}
   isJumped: 0

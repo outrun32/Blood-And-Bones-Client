@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,11 +10,13 @@ public class GameManager : MonoBehaviour
     private PlayerController _playerController;
     [SerializeField] private CameraController _cameraController;
     [SerializeField] private InputViewMobile _inputViewMobile;
+    [SerializeField] private PlayerController _localPlayerPrefab;
+    [SerializeField] private PlayerManager _playerPrefab;
+    [SerializeField] private CinemachineFreeLook _camera;
 
     public static Dictionary<int, PlayerManager> Players = new Dictionary<int, PlayerManager>();
 
-    [SerializeField] private PlayerController _localPlayerPrefab;
-    [SerializeField] private PlayerManager _playerPrefab;
+    
 
     private void Awake()
     {
@@ -34,8 +37,11 @@ public class GameManager : MonoBehaviour
         {
             _playerController = Instantiate(_localPlayerPrefab, position, rotation);
             player = _playerController.PlayerManager;
-            _playerController.SetCameraController(_cameraController);
+            _playerController.SetCameraController(_camera);
             _playerController.SetInputViewMobile(_inputViewMobile);
+            Transform _playerControllerTransform = _playerController.transform;
+            _camera.Follow = _playerControllerTransform;
+            _camera.LookAt = _playerControllerTransform;
         }
         else
         {

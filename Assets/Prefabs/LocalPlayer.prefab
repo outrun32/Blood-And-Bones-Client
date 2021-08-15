@@ -266,11 +266,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sInputControllerPC: {fileID: 11400000, guid: 9ea6795a39525f7479e8748b17503775, type: 2}
+  _playerManager: {fileID: 3834592803220419282}
   _isMobile: 1
-  nCameraController: {fileID: 0}
-  isJumped: 0
-  joyAxis: {x: 0, y: 0}
-  playerManager: {fileID: 3834592803220419282}
+  _speedRotation: 5
 --- !u!114 &6613146243598012334
 MonoBehaviour:
   m_ObjectHideFlags: 0

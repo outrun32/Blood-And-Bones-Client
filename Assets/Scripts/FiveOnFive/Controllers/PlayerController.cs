@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private IInput _inputControllerMobile;
     private IInput _inputControllerPC;
 
-    private CameraController _cameraController;
+    private CinemachineFreeLook _cameraController;
     private InputViewMobile _inputViewMobile;
     
     [SerializeField] private PlayerManager _playerManager;
@@ -73,22 +74,28 @@ public class PlayerController : MonoBehaviour
     {
         _inputViewMobile = value;
     }
-    public void SetCameraController(CameraController cameraController)
+    public void SetCameraController(CinemachineFreeLook cameraController)
     {
         _cameraController = cameraController;
     }
 
     void CheckAxis(AxesName nameAxis, Vector2 axis)
     {
+        if (nameAxis != AxesName.CameraMove)
+        {
+            _cameraController.m_XAxis.m_InputAxisValue = 0;
+            _cameraController.m_YAxis.m_InputAxisValue = 0;
+        }
         switch (nameAxis)
         {
             case AxesName.DirectionMove:
                 _joyAxis = axis;
                 if(_joyAxis != Vector2.zero)
-                    cameraTransformForward = _cameraController.GetCameraTransformForward();
+                    cameraTransformForward = new Vector3(_cameraController.transform.forward.x, 0, _cameraController.transform.forward.z);;
                 break;
             case AxesName.CameraMove:
-                _cameraController.MoveCamera(axis);
+                _cameraController.m_XAxis.m_InputAxisValue = axis.x;
+                _cameraController.m_YAxis.m_InputAxisValue = axis.y;
                 break;
         } 
     }

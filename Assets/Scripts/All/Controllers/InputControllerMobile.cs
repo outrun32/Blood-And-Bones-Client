@@ -62,7 +62,7 @@ public class InputControllerMobile : IInput
         });
         _inputViewMobile.CameraMoveTarget.OnDown.AddListener(delegate
         {
-            SetButton(ButtonsName.Atack, ButtonState.OnDown);
+            SetButton(ButtonsName.Aim, ButtonState.OnDown);
         });
         _inputViewMobile.CameraMoveField.OnDragEvent.AddListener(SetCameraMove);
     }

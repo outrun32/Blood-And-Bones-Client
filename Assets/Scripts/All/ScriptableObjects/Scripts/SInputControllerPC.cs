@@ -9,6 +9,7 @@ public class SInputControllerPC : ScriptableObject
     [SerializeField]private KeyCode _backCode = KeyCode.S;
     
     [SerializeField]private KeyCode _atackCode = KeyCode.Mouse0;
+    [SerializeField]private KeyCode _aimCode = KeyCode.T;
     [SerializeField] private KeyCode _jumpCode = KeyCode.Space;
 
     public KeyCode ForwardCode => _forwardCode;
@@ -22,6 +23,8 @@ public class SInputControllerPC : ScriptableObject
     public KeyCode AtackCode => _atackCode;
 
     public KeyCode JumpCode => _jumpCode;
+
+    public KeyCode AimCode => _aimCode;
     
     public void SetKeyCode(string nameCode, KeyCode code)
     {

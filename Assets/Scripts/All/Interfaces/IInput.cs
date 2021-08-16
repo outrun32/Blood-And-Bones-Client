@@ -9,7 +9,8 @@ public interface IInput:IFixedUpdate, IStart
 }
 public enum ButtonsName{
     Jump,
-    Atack
+    Atack,
+    Aim
 }
 
 public enum ButtonState{

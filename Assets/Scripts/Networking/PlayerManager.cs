@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoBehaviour
 {
     private int _id;
     private string _username;
+    [SerializeField] private bool _usernameIsvizible;
     [SerializeField] private ClientPlayerController _clientController;
+    [SerializeField] private Text _usernameText;
 
     public void SetID(int value)
     {
@@ -15,6 +18,8 @@ public class PlayerManager : MonoBehaviour
     
     public void SetUsername(string value)
     {
+        if (_usernameIsvizible) _usernameText.text = value;
+        else _usernameText.text = "";
         _username = value;
     }
     

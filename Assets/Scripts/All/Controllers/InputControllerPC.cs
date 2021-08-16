@@ -27,6 +27,8 @@ public class InputControllerPC: IInput
         if (Input.GetKeyDown(SInputControllerPC.AtackCode)) ButtonCodeInputReturn?.Invoke(ButtonsName.Atack, ButtonState.OnDown);
         if (Input.GetKeyUp(SInputControllerPC.JumpCode)) ButtonCodeInputReturn?.Invoke(ButtonsName.Jump, ButtonState.OnUp);
         if (Input.GetKeyUp(SInputControllerPC.AtackCode)) ButtonCodeInputReturn?.Invoke(ButtonsName.Atack, ButtonState.OnUp);
+        
+        if (Input.GetKeyDown(SInputControllerPC.AimCode)) ButtonCodeInputReturn?.Invoke(ButtonsName.Aim, ButtonState.OnDown);
     }
     public void FixedUpdate()
     {

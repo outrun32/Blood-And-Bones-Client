@@ -8,11 +8,12 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance => _instance;
     private PlayerController _playerController;
-    [SerializeField] private CameraController _cameraController;
     [SerializeField] private InputViewMobile _inputViewMobile;
     [SerializeField] private PlayerController _localPlayerPrefab;
     [SerializeField] private PlayerManager _playerPrefab;
-    [SerializeField] private CinemachineFreeLook _camera;
+    [SerializeField] private CinemachineFreeLook _cameraFreeLook;
+    [SerializeField] private CinemachineVirtualCamera _cameraVirtual;
+    
 
     public static Dictionary<int, PlayerManager> Players = new Dictionary<int, PlayerManager>();
 
@@ -30,6 +31,11 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
+
+    public void Aim()
+    {
+        
+    }
     public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation)
     {
         PlayerManager player;
@@ -37,11 +43,13 @@ public class GameManager : MonoBehaviour
         {
             _playerController = Instantiate(_localPlayerPrefab, position, rotation);
             player = _playerController.PlayerManager;
-            _playerController.SetCameraController(_camera);
+            _playerController.SetCameraController(_cameraFreeLook, _cameraVirtual);
             _playerController.SetInputViewMobile(_inputViewMobile);
             Transform _playerControllerTransform = _playerController.transform;
-            _camera.Follow = _playerControllerTransform;
-            _camera.LookAt = _playerControllerTransform;
+            _cameraFreeLook.Follow = _playerControllerTransform;
+            _cameraFreeLook.LookAt = _playerControllerTransform;
+            _cameraVirtual.Follow = _playerControllerTransform;
+            _cameraVirtual.LookAt = _playerControllerTransform;
         }
         else
         {

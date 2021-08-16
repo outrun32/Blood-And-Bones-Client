@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2049,7 +2049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputViewMobile: {fileID: 3016817155536812182}
-  _localPlayerPrefab: {fileID: -2910599488308847691, guid: a7fc3873678416c4fb60c72272ae2f6e, type: 3}
+  _localPlayerPrefab: {fileID: 1793550362733362283, guid: 342803267b4019d49bd23f7bf6c098a0, type: 3}
   _playerPrefab: {fileID: 3834592803220419282, guid: 88c450f45dcbeb5458e997f4ee5ceb48, type: 3}
   _cameraFreeLook: {fileID: 1324705321}
   _cameraVirtual: {fileID: 919129446}

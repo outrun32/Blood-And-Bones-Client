@@ -1,0 +1,222 @@
+fileFormatVersion: 2
+guid: 1f15957fb911d85409bd1ecf0b85858e
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable:
+  - first:
+      74: -8926345775734788825
+    second: Atack_Around
+  - first:
+      74: -7692171837852021018
+    second: Atack_Combo
+  - first:
+      74: -427935889157791472
+    second: Atack_Critical
+  - first:
+      74: -5515823335165717052
+    second: Atack_Fast
+  - first:
+      74: 5616863171313126361
+    second: Atack_Inner
+  - first:
+      74: 3441635082546322199
+    second: Atack_Knok
+  - first:
+      74: 4799004096289309990
+    second: Atack_Normal
+  - first:
+      74: 7664303309965942290
+    second: Block_Idle
+  - first:
+      74: 9031548991189606040
+    second: Block_Impact
+  - first:
+      74: 642847170681556961
+    second: Block_In
+  - first:
+      74: 1540498706109091121
+    second: Block_Out
+  - first:
+      74: 4348485665485846014
+    second: Death
+  - first:
+      74: 6182763086745782283
+    second: Death_Forward
+  - first:
+      74: 3538056252403563054
+    second: Dodge_Back
+  - first:
+      74: 7754132222620273419
+    second: Hit_Impact_1
+  - first:
+      74: -9177953853670315025
+    second: Hit_Impact_2
+  - first:
+      74: -3100369314251171874
+    second: Idle
+  - first:
+      74: 2730884403437174828
+    second: Run_Backward
+  - first:
+      74: 2216972904187992000
+    second: Run_Forward
+  - first:
+      74: -4810848800342533127
+    second: Run_Left
+  - first:
+      74: 3304999090146950619
+    second: Run_Right
+  - first:
+      74: 1540028457872560229
+    second: Strafe_Left
+  - first:
+      74: -2094301782565841437
+    second: Strafe_Right
+  - first:
+      74: 2699223227767875773
+    second: Walk_Backward
+  - first:
+      74: 5599871095008294255
+    second: Walk_Forward
+  - first:
+      74: -2561180826412071666
+    second: Weapon_Out
+  - first:
+      74: 40237515913328221
+    second: Knight_Armature|Armature.001|mixamo.com|Layer0
+  - first:
+      74: 1887358071695170608
+    second: Knight_Armature|Armature|mixamo.com|Layer0
+  - first:
+      74: -5563037178451098564
+    second: Knight_Armature|MCH_Rotation_target.001Action
+  - first:
+      74: -5333570091562973044
+    second: Knight_Armature|MCH_Rotation_targetAction
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Knight_Bot
+    second: {fileID: 2100000, guid: 8c7ee8d899cb08347ac4390a023d16c2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Knight_Head
+    second: {fileID: 2100000, guid: 10f66855ebd53b34aa16d4e1b3fb292a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Knight_Mid
+    second: {fileID: 2100000, guid: f89bcd516d5d1094980c28a2cc8d8ae8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Knight_Shield
+    second: {fileID: 2100000, guid: a1ade7265122bd84ca256e34866999cb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Knight_Sword
+    second: {fileID: 2100000, guid: ca2cd4a48cd63d74d8d781b5a5786caa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Knight_Top
+    second: {fileID: 2100000, guid: 5dbc9ae63046af748b78bac642b2ee8d, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

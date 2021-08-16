@@ -93,10 +93,11 @@ public class PlayerController : MonoBehaviour
 
     void CheckAxis(AxesName nameAxis, Vector2 axis)
     {
-        if (nameAxis != AxesName.CameraMove)
+        if (nameAxis != AxesName.CameraMovePressed)
         {
             _freeLookCameraController.m_XAxis.m_InputAxisValue = 0;
             _freeLookCameraController.m_YAxis.m_InputAxisValue = 0;
+            _isCheckedAim = false;
         }
         switch (nameAxis)
         {
@@ -105,24 +106,18 @@ public class PlayerController : MonoBehaviour
                 if(_joyAxis != Vector2.zero)
                     cameraTransformForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);;
                 break;
-            case AxesName.CameraMove:
+            case AxesName.CameraMovePressed:
                 if (!_isAim)
                 {
                     _freeLookCameraController.m_XAxis.m_InputAxisValue = axis.x;
                     _freeLookCameraController.m_YAxis.m_InputAxisValue = axis.y;
                 }
-                else
+                break;
+            case AxesName.CameraMoveOnUp:
+                if (axis != Vector2.zero && _isAim)
                 {
-                    if (axis != Vector2.zero)
-                    {
-                        if (!_isCheckedAim)
-                        {
-                            _isCheckedAim = true;
-                            if (axis.x > 0) _autoAim.Last();
-                            if (axis.x < 0) _autoAim.Next();
-                        }
-                    }
-                    else _isCheckedAim = false;
+                    if (axis.x > 0) _autoAim.Last();
+                    if (axis.x < 0) _autoAim.Next();
                 }
                 break;
         } 

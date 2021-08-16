@@ -31,7 +31,12 @@ public class InputControllerMobile : IInput
 
     public void SetCameraMove(Vector2 direction)
     {
-        AxisCodeInputReturn?.Invoke(AxesName.CameraMove,direction);
+        AxisCodeInputReturn?.Invoke(AxesName.CameraMovePressed,direction);
+    }
+
+    public void SetCameraMoveFinish(Vector2 direction)
+    {
+        AxisCodeInputReturn?.Invoke(AxesName.CameraMoveOnUp,direction);
     }
 
     public void Start()
@@ -65,5 +70,6 @@ public class InputControllerMobile : IInput
             SetButton(ButtonsName.Aim, ButtonState.OnDown);
         });
         _inputViewMobile.CameraMoveField.OnDragEvent.AddListener(SetCameraMove);
+        _inputViewMobile.CameraMoveField.OnDragFinishEvent.AddListener(SetCameraMoveFinish);
     }
 }

@@ -10,7 +10,8 @@ public interface IInput:IFixedUpdate, IStart
 public enum ButtonsName{
     Jump,
     Atack,
-    Aim
+    Aim,
+    CameraMove
 }
 
 public enum ButtonState{
@@ -22,5 +23,6 @@ public enum ButtonState{
 public enum AxesName
 {
     DirectionMove,
-    CameraMove
+    CameraMovePressed,
+    CameraMoveOnUp
 }

@@ -58,7 +58,6 @@ public class GameManager : MonoBehaviour
 
         player.SetID(id);;
         player.SetUsername(username);
-        player.Init();
         Players.Add(id, player);
     }
 }

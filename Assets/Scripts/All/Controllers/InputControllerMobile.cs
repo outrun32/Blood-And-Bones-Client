@@ -43,12 +43,17 @@ public class InputControllerMobile : IInput
     {
         _inputViewMobile.SuperAttack.OnDown.AddListener(delegate
         {
-            SetButton(ButtonsName.Atack, ButtonState.OnDown);
+           // SetButton(ButtonsName.Atack, ButtonState.OnDown);
+        });
+        _inputViewMobile.Attack.OnUp.AddListener(delegate
+        {
+            SetButton(ButtonsName.Atack, ButtonState.OnUp);
         });
         _inputViewMobile.Attack.OnDown.AddListener(delegate
         {
             SetButton(ButtonsName.Atack, ButtonState.OnDown);
         });
+        
         _inputViewMobile.Jump.OnDown.AddListener(delegate
         {
             SetButton(ButtonsName.Jump, ButtonState.OnDown);
@@ -57,13 +62,14 @@ public class InputControllerMobile : IInput
         {
             SetButton(ButtonsName.Jump, ButtonState.OnUp);
         });
+        
         _inputViewMobile.Sit.OnDown.AddListener(delegate
         {
-            SetButton(ButtonsName.Atack, ButtonState.OnDown);
+            //SetButton(ButtonsName.Atack, ButtonState.OnDown);
         });
         _inputViewMobile.Run.OnDown.AddListener(delegate
         {
-            SetButton(ButtonsName.Atack, ButtonState.OnDown);
+            //SetButton(ButtonsName.Atack, ButtonState.OnDown);
         });
         _inputViewMobile.CameraMoveTarget.OnDown.AddListener(delegate
         {

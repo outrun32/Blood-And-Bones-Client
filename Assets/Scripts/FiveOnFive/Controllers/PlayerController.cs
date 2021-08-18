@@ -25,17 +25,18 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private bool _isMobile = true;
     [SerializeField] private float _speedRotation = 10;
-    public AnimationController AnimationController;
+    [SerializeField] public AnimationController AnimationController;
     public PlayerManager PlayerManager => _playerManager;
     private InputModel _inputModel = default;
-    public InputModel InputModel => _inputModel;
 
-    public void Initialize()
+    public InputModel InputModel
     {
-        AnimationController = new AnimationController(_animator);
-        _playerManager.Initialize(_clientPlayerController, AnimationController);
+        get
+        {
+            _inputModel.rotation = transform.rotation;
+            return _inputModel;
+        }
     }
-
     void Start()
     {
         if (_isMobile)
@@ -141,7 +142,7 @@ public class PlayerController : MonoBehaviour
         switch (nameButton)
         {
             case ButtonsName.Atack:
-
+                _inputModel.IsAttacking = state == ButtonState.OnDown;
                 break;  
             case ButtonsName.Jump:
                 _inputModel.IsJumping = state == ButtonState.OnDown;

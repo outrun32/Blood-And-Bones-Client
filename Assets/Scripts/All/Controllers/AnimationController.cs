@@ -1,14 +1,9 @@
 using UnityEngine;
 
-public class AnimationController
+public class AnimationController: MonoBehaviour
 {
-    private Animator _animator;
-
-    public AnimationController(Animator animator)
-    {
-        _animator = animator;
-    }
-    public void Update(AnimationModel inputModel)
+    [SerializeField]private Animator _animator;
+    public void NUpdate(AnimationModel inputModel)
     {
         _animator.SetFloat("SpeedX", inputModel.SpeedX);
         _animator.SetFloat("SpeedY", inputModel.SpeedY);

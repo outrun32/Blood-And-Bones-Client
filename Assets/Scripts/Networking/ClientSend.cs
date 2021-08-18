@@ -28,10 +28,10 @@ public class ClientSend : MonoBehaviour
             SendTCPData(_packet);
         }
     }
-
-    public static void PlayerMovement(float[] inputs, bool isJumping)
+    //Todo:
+    /*public static void PlayerMovement(float[] inputs, bool isJumping)
     {
-        using (Packet _packet = new Packet((int)ClientPackets.playerMovement))
+        using (Packet _packet = new Packet((int)ClientPackets.playerInput))
         {
             _packet.Write(inputs.Length);
             foreach (float axis in inputs)
@@ -41,6 +41,14 @@ public class ClientSend : MonoBehaviour
             _packet.Write(isJumping);
             _packet.Write(GameManager.Players[Client.instance.myId].transform.rotation);
 
+            SendUDPData(_packet);
+        }
+    }*/
+    public static void PlayerInput(InputModel inputModel)
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.playerInput))
+        {
+            _packet.Write(inputModel);
             SendUDPData(_packet);
         }
     }

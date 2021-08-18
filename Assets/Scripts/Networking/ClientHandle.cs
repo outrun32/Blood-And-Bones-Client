@@ -51,4 +51,11 @@ public class ClientHandle : MonoBehaviour
         Destroy(GameManager.Players[_id].gameObject);
         GameManager.Players.Remove(_id);
     }
+    public static void PlayerAnimation(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        AnimationModel _animationModel = _packet.ReadAnimationModel();
+        GameManager.Players[_id].SeAnimation(_animationModel);
+        //TODO: GameManager Invoke
+    }
 }

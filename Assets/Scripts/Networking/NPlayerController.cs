@@ -9,18 +9,11 @@ public class NPlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        axis = _controller.JoyAxis;
         SendInputToServer();
     }
 
     private void SendInputToServer()
     {
-        float[] _inputs = new float[]
-        {
-            axis.x,
-            axis.y
-        };
-        bool _isJumping = _controller.IsJumped;
-        ClientSend.PlayerMovement(_inputs, _isJumping);
+        ClientSend.PlayerInput(_controller.InputModel);
     }
 }

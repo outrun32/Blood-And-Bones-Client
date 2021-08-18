@@ -421,7 +421,7 @@ Transform:
   m_GameObject: {fileID: 196836319}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 100, y: 1, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
@@ -2049,7 +2049,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputViewMobile: {fileID: 3016817155536812182}
-  _localPlayerPrefab: {fileID: -2910599488308847691, guid: a7fc3873678416c4fb60c72272ae2f6e, type: 3}
+  _localPlayerPrefab: {fileID: 4733851530750100191, guid: fba626f8406a33140aaedb3a09d4b2d6, type: 3}
   _playerPrefab: {fileID: 3834592803220419282, guid: 88c450f45dcbeb5458e997f4ee5ceb48, type: 3}
   _cameraFreeLook: {fileID: 1324705321}
   _cameraVirtual: {fileID: 919129446}

@@ -8,14 +8,25 @@ public class PlayerManager : MonoBehaviour
     private int _id;
     private string _username;
     [SerializeField] private bool _usernameIsvizible;
-    [SerializeField] private ClientPlayerController _clientController;
+    [SerializeField]private PlayerController _playerController;
+    private ClientPlayerController _clientController; 
+    private AnimationController _animationController;
     [SerializeField] private Text _usernameText;
 
     public void SetID(int value)
     {
         _id = value;
     }
-    
+
+    public void Init()
+    {
+        _playerController.Initialize();
+    }
+    public void Initialize(ClientPlayerController playerController, AnimationController animationController)
+    {
+        _clientController = playerController;
+        _animationController = animationController;
+    }
     public void SetUsername(string value)
     {
         if (_usernameIsvizible) _usernameText.text = value;
@@ -27,7 +38,10 @@ public class PlayerManager : MonoBehaviour
     {
         _clientController.SetPosition(position);
     }
-
+    public void SeAnimation(AnimationModel model)
+    {
+        _animationController.Update(model);
+    }
     public void SetRotation(Quaternion rotation)
     {
         _clientController.SetRotation(rotation);

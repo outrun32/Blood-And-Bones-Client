@@ -12,21 +12,29 @@ public class PlayerController : MonoBehaviour
     private CinemachineVirtualCamera _virtualCameraController;
     private InputViewMobile _inputViewMobile;
     [SerializeField] private AutoAim _autoAim;
+    [SerializeField] private Animator _animator;
     [SerializeField] private PlayerManager _playerManager;
+    [SerializeField] private ClientPlayerController _clientPlayerController;
+    [SerializeField] private FloatVar SpeedX, SpeedY;
     
-
-    private bool _isJumped;
     private bool _isAim = false;
     private bool _isCheckedAim = false;
-    private Vector2 _joyAxis;
+    
     [SerializeField] private Vector3 cameraTransformForward;
     private Transform _aimTarget;
 
     [SerializeField] private bool _isMobile = true;
     [SerializeField] private float _speedRotation = 10;
-    public bool IsJumped => _isJumped;
-    public Vector2 JoyAxis => _joyAxis;
+    public AnimationController AnimationController;
     public PlayerManager PlayerManager => _playerManager;
+    private InputModel _inputModel = default;
+    public InputModel InputModel => _inputModel;
+
+    public void Initialize()
+    {
+        AnimationController = new AnimationController(_animator);
+        _playerManager.Initialize(_clientPlayerController, AnimationController);
+    }
 
     void Start()
     {
@@ -102,8 +110,11 @@ public class PlayerController : MonoBehaviour
         switch (nameAxis)
         {
             case AxesName.DirectionMove:
-                _joyAxis = axis;
-                if(_joyAxis != Vector2.zero)
+                if (axis.magnitude > 0.1f) _inputModel.JoystickAxis = axis;
+                else _inputModel.JoystickAxis = Vector2.zero;
+                SpeedX.Value = _inputModel.JoystickAxis.x;
+                SpeedY.Value = _inputModel.JoystickAxis.y;
+                if(_inputModel.JoystickAxis != Vector2.zero)
                     cameraTransformForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);;
                 break;
             case AxesName.CameraMovePressed:
@@ -133,7 +144,7 @@ public class PlayerController : MonoBehaviour
 
                 break;  
             case ButtonsName.Jump:
-                _isJumped = state == ButtonState.OnDown;
+                _inputModel.IsJumping = state == ButtonState.OnDown;
                 break;
             case ButtonsName.Aim:
                 if (_isAim)

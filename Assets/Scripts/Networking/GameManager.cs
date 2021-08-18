@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Networking;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance => _instance;
     private PlayerController _playerController;
     [SerializeField] private InputViewMobile _inputViewMobile;
+    [SerializeField] private HudController _hud;
     [SerializeField] private PlayerController _localPlayerPrefab;
     [SerializeField] private PlayerManager _playerPrefab;
     [SerializeField] private CinemachineFreeLook _cameraFreeLook;
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
         {
             _playerController = Instantiate(_localPlayerPrefab, position, rotation);
             player = _playerController.PlayerManager;
+            player.SetHud(_hud);
             _playerController.SetCameraController(_cameraFreeLook, _cameraVirtual);
             _playerController.SetInputViewMobile(_inputViewMobile);
             Transform _playerControllerTransform = _playerController.transform;

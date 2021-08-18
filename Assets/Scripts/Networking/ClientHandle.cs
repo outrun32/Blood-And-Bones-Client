@@ -24,8 +24,13 @@ public class ClientHandle : MonoBehaviour
         string _username = _packet.ReadString();
         Vector3 _position = _packet.ReadVector3();
         Quaternion _rotation = _packet.ReadQuaternion();
+        float maxHealth = _packet.ReadFloat(),
+            maxMana = _packet.ReadFloat(), 
+            startHealth = _packet.ReadFloat(), 
+            startMana = _packet.ReadFloat();
 
         GameManager.Instance.SpawnPlayer(_id, _username, _position, _rotation);
+        GameManager.Players[_id].SetStartInfo(maxHealth,maxMana,startHealth,startMana);
     }
 
     public static void PlayerPosition(Packet _packet)
@@ -56,6 +61,12 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         AnimationModel _animationModel = _packet.ReadAnimationModel();
         GameManager.Players[_id].SeAnimation(_animationModel);
+    }
+    public static void PlayerInfo(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        float health = _packet.ReadFloat(), mana = _packet.ReadFloat();
+        GameManager.Players[_id].SetInfo(health, mana);
         //TODO: GameManager Invoke
     }
 }

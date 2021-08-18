@@ -1,4 +1,5 @@
 using Cinemachine;
+using Networking;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,9 +27,25 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool _isMobile = true;
     [SerializeField] private float _speedRotation = 10;
     [SerializeField] public AnimationController AnimationController;
+    private HudController _hudController;
     public PlayerManager PlayerManager => _playerManager;
     private InputModel _inputModel = default;
 
+    private float _maxHealth, _health, _maxMana, _mana;
+
+    public void SetStartInfo(float maxHealth, float maxMana, float health,  float mana)
+    {
+        _maxHealth = maxHealth;
+        _health = health;
+        _maxMana = maxMana;
+        _mana = mana;
+    }
+
+    public void SetInfo(float health,float mana)
+    {
+        _health = health;
+        _mana = mana;
+    }
     public InputModel InputModel
     {
         get
@@ -60,6 +77,8 @@ public class PlayerController : MonoBehaviour
         {
             _inputControllerPC.Start();
         }
+
+       
     }
 
     private void Update()
@@ -98,6 +117,10 @@ public class PlayerController : MonoBehaviour
     {
         _freeLookCameraController = cameraController;
         _virtualCameraController = virtualCameraController;
+    }
+    public void SetHud(HudController hudController)
+    {
+        _hudController = hudController;
     }
 
     void CheckAxis(AxesName nameAxis, Vector2 axis)

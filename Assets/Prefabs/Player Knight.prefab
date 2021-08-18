@@ -31,6 +31,7 @@ RectTransform:
   m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
   m_Children:
   - {fileID: 1756584405390229827}
+  - {fileID: 3751372748875708068}
   m_Father: {fileID: 5072618523377013387}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -153,6 +154,7 @@ MonoBehaviour:
   _clientController: {fileID: 6918086751529813239}
   _animationController: {fileID: 8736105866434265553}
   _usernameText: {fileID: 6970979859954545261}
+  _hud: {fileID: 5821347415312317916}
 --- !u!114 &6918086751529813239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +238,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 9166284468183564613}
+--- !u!1 &1728942827729262009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3751372748875708068}
+  - component: {fileID: 5821347415312317916}
+  m_Layer: 5
+  m_Name: Hud
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3751372748875708068
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728942827729262009}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5165874438030327074}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 35.000008}
+  m_SizeDelta: {x: 400, y: 70}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5821347415312317916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728942827729262009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe051c2f9e16cad4daae9a2efd290604, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HeathImage: {fileID: 0}
+  ManaImage: {fileID: 0}
+  ManaIsVizible: 0
+  HealthIsVizible: 0
 --- !u!95 &9166284468183564613
 Animator:
   serializedVersion: 3

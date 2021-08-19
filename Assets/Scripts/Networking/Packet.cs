@@ -396,7 +396,7 @@ public class Packet : IDisposable
         /// <returns>Vector3</returns>
         public AnimationModel ReadAnimationModel(bool _moveReadPos = true)
         {
-            return new AnimationModel(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadInt(_moveReadPos), ReadInt(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos));
+            return new AnimationModel(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadInt(_moveReadPos), ReadInt(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos));
         }
     #endregion
 

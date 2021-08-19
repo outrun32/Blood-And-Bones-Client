@@ -10,6 +10,7 @@ public interface IInput:IFixedUpdate, IStart
 public enum ButtonsName{
     Jump,
     Atack,
+    Block,
     Aim,
     CameraMove
 }

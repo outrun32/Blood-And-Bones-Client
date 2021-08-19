@@ -180,6 +180,9 @@ public class PlayerController : MonoBehaviour
                     _autoAim.Aim();
                 }
                 break;
+            case ButtonsName.Block:
+                _inputModel.IsBlocking = state == ButtonState.OnDown;
+                break;
         }
     }
     [ContextMenu("Aim")]

@@ -20,7 +20,7 @@ public class InputControllerMobile : IInput
     }
     public void FixedUpdate()
     {
-        AxisCodeInputReturn?.Invoke(AxesName.DirectionMove,_inputViewMobile.Joystick.Direction);
+        AxisCodeInputReturn?.Invoke(AxesName.DirectionMove,_inputViewMobile.Joystick.Direction + new Vector2(0, (Input.GetKey(KeyCode.W))?1:0));
         
     }
 
@@ -52,6 +52,15 @@ public class InputControllerMobile : IInput
         _inputViewMobile.Attack.OnDown.AddListener(delegate
         {
             SetButton(ButtonsName.Atack, ButtonState.OnDown);
+        });
+        
+        _inputViewMobile.Block.OnUp.AddListener(delegate
+        {
+            SetButton(ButtonsName.Block, ButtonState.OnUp);
+        });
+        _inputViewMobile.Block.OnDown.AddListener(delegate
+        {
+            SetButton(ButtonsName.Block, ButtonState.OnDown);
         });
         
         _inputViewMobile.Jump.OnDown.AddListener(delegate

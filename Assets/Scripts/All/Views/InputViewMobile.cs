@@ -15,6 +15,8 @@ public class InputViewMobile : MonoBehaviour
 
     public MainUi Attack;
     
+    public MainUi Block;
+    
     public MainUi SuperAttack;
 
     public MainUi CameraMoveTarget;

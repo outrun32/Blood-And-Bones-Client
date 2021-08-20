@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
 using Networking;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +25,8 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        
+        //Permission.RequestUserPermission(Permission.Camera);
         if (_instance == null)
         {
             _instance = this;
@@ -32,6 +36,11 @@ public class GameManager : MonoBehaviour
             Debug.LogError("Instance already exists, destroying object!");
             Destroy(this);
         }
+    }
+
+    private void Start()
+    {
+        Permission.RequestUserPermission("android.permission.INTERNET");
     }
 
     public void Aim()
@@ -61,6 +70,7 @@ public class GameManager : MonoBehaviour
 
         player.SetID(id);;
         player.SetUsername(username);
-        Players.Add(id, player);
+        if (!Players.ContainsKey(id)) Players.Add(id, player);
+        else Players[id] = player;
     }
 }

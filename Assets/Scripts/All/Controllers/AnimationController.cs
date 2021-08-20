@@ -12,8 +12,9 @@ public class AnimationController: MonoBehaviour
         _animator.SetBool("Attack", inputModel.IsAttack);
         _animator.SetBool("SuperAttack", inputModel.IsSuperAttack);
         _animator.SetInteger("AttackInd", inputModel.AttackInd);
-        _animator.SetInteger("BlockInd", inputModel.HitInd);
+        _animator.SetInteger("HitInd", inputModel.HitInd);
         _animator.SetBool("Block", inputModel.IsBlock);
         _animator.SetBool("BlockImpact", inputModel.IsBlockImpact);
+        _animator.SetBool("Death", inputModel.IsDeath);
     }
 }

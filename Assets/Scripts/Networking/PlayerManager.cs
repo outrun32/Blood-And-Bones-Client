@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +6,8 @@ namespace Networking
 {
     public delegate void GetStartInfo(float maxHealth, float maxMana, float health, float mana);
     public delegate void GetInfo(float health, float mana);
+
+    public delegate void ReturnVoid();
     public class PlayerManager : MonoBehaviour
     {
         private int _id;
@@ -16,7 +19,7 @@ namespace Networking
         [SerializeField] private HudController _hud;
         public event GetStartInfo GetStartInfoEvent;
         public event GetInfo GetInfoEvent;
-
+        public event ReturnVoid DeathEvent;
         public void SetHud(HudController hudController)
         {
             _hud = hudController;
@@ -57,6 +60,19 @@ namespace Networking
         public void SetRotation(Quaternion rotation)
         {
             _clientController.SetRotation(rotation);
+        }
+
+        public void Death()
+        {
+            Debug.Log("Death");
+            DeathEvent?.Invoke();
+            StartCoroutine(DeathCoroutine());
+        }
+        
+        private IEnumerator DeathCoroutine()
+        {
+            yield return new WaitForSeconds(10);
+            Destroy(this.gameObject);
         }
     }
 }

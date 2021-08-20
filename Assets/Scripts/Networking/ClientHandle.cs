@@ -67,6 +67,10 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         float health = _packet.ReadFloat(), mana = _packet.ReadFloat();
         GameManager.Players[_id].SetInfo(health, mana);
-        //TODO: GameManager Invoke
+    }
+    public static void PlayerDeath(Packet _packet)
+    {
+        int _id = _packet.ReadInt();
+        GameManager.Players[_id].Death();
     }
 }

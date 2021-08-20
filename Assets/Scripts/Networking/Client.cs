@@ -282,7 +282,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
             { (int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected},
             { (int)ServerPackets.playerAnimation, ClientHandle.PlayerAnimation},
-            { (int)ServerPackets.playerInfo, ClientHandle.PlayerInfo}
+            { (int)ServerPackets.playerInfo, ClientHandle.PlayerInfo},
+            { (int)ServerPackets.playerDeath, ClientHandle.PlayerDeath}
         };
         Debug.Log("Initialized packets.");
     }
@@ -292,8 +293,7 @@ public class Client : MonoBehaviour
         if (_isConnected)
         {
             _isConnected = false;
-            tcp.socket.Close();
-            udp.socket.Close();
+            tcp.socket.Close(); udp.socket.Close();
 
             Debug.Log("Disconnected from server.");
         }

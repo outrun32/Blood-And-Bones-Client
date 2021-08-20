@@ -12,7 +12,8 @@ public enum ServerPackets
     playerRotation,
     playerDisconnected,
     playerAnimation,
-    playerInfo
+    playerInfo,
+    playerDeath
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -396,7 +397,7 @@ public class Packet : IDisposable
         /// <returns>Vector3</returns>
         public AnimationModel ReadAnimationModel(bool _moveReadPos = true)
         {
-            return new AnimationModel(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadInt(_moveReadPos), ReadInt(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos));
+            return new AnimationModel(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadInt(_moveReadPos), ReadInt(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos),ReadBool(_moveReadPos));
         }
     #endregion
 

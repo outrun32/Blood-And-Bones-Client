@@ -1,3 +1,4 @@
+using System.Collections;
 using Cinemachine;
 using Networking;
 using UnityEngine;
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private InputModel _inputModel = default;
 
     private float _maxHealth, _health, _maxMana, _mana;
+    private bool _IsDeath = false;
 
     public void SetStartInfo(float maxHealth, float maxMana, float health,  float mana)
     {
@@ -78,30 +80,38 @@ public class PlayerController : MonoBehaviour
             _inputControllerPC.Start();
         }
 
-       
+        _playerManager.DeathEvent += Death;
     }
 
     private void Update()
     {
-        //_freeLookCameraController.transform.position = transform.position;
-        Vector3 _transformPosition = transform.position;
-        if (_isAim)
+        if (!_IsDeath)
         {
-            gameObject.transform.LookAt( _transformPosition + Vector3.Lerp(transform.forward, GetForward(_aimTarget.position  - _transformPosition), _speedRotation * Time.deltaTime));
+            //_freeLookCameraController.transform.position = transform.position;
+            Vector3 _transformPosition = transform.position;
+            if (_isAim)
+            {
+                gameObject.transform.LookAt(_transformPosition + Vector3.Lerp(transform.forward,
+                    GetForward(_aimTarget.position - _transformPosition), _speedRotation * Time.deltaTime));
+            }
+            else
+                gameObject.transform.LookAt(_transformPosition + Vector3.Lerp(transform.forward,
+                    cameraTransformForward.normalized, _speedRotation * Time.deltaTime));
         }
-        else gameObject.transform.LookAt(_transformPosition + Vector3.Lerp(transform.forward, cameraTransformForward.normalized, _speedRotation * Time.deltaTime));
-
     }
 
     private void FixedUpdate()
     {
-        if (_isMobile)
+        if (!_IsDeath)
         {
-            _inputControllerMobile.FixedUpdate();
-        }
-        else
-        {
-            _inputControllerPC.FixedUpdate();
+            if (_isMobile)
+            {
+                _inputControllerMobile.FixedUpdate();
+            }
+            else
+            {
+                _inputControllerPC.FixedUpdate();
+            }
         }
     }
 
@@ -200,4 +210,22 @@ public class PlayerController : MonoBehaviour
         _freeLookCameraController.gameObject.SetActive(true);
         _virtualCameraController.gameObject.SetActive(false);
     }
+
+    public void Death()
+    {
+        _IsDeath = true;
+        if (_isMobile)
+        {
+            _inputControllerMobile.AxisCodeInputReturn -= CheckAxis;
+            _inputControllerMobile.ButtonCodeInputReturn -= CheckButtons;
+        }
+        else
+        {
+            _inputControllerPC.AxisCodeInputReturn -= CheckAxis;
+            _inputControllerPC.ButtonCodeInputReturn -= CheckButtons;
+        }
+        _playerManager.DeathEvent -= Death;
+    }
+
+    
 }

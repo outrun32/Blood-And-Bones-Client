@@ -8,6 +8,7 @@ using UnityEngine.Android;
 
 public class GameManager : MonoBehaviour
 {
+    
     private static GameManager _instance;
     public static GameManager Instance => _instance;
     private PlayerController _playerController;
@@ -24,8 +25,11 @@ public class GameManager : MonoBehaviour
     {
         return(Players.ContainsKey(ID));
     }
-    
 
+    public void Disconnect()
+    {
+        Client.instance.Disconnect();
+    }
     private void Awake()
     {
         

@@ -20,8 +20,14 @@ public class InputControllerMobile : IInput
     }
     public void FixedUpdate()
     {
-        AxisCodeInputReturn?.Invoke(AxesName.DirectionMove,_inputViewMobile.Joystick.Direction + new Vector2(0, (Input.GetKey(KeyCode.W))?1:0));
-        
+        AxisCodeInputReturn?.Invoke(AxesName.DirectionMove,_inputViewMobile.Joystick.Direction 
+                                                           +new Vector2(0, (Input.GetKey(KeyCode.W))?1:0)
+                                                           +new Vector2(0, (Input.GetKey(KeyCode.S))?-1:0)
+                                                           +new Vector2( (Input.GetKey(KeyCode.D))?1:0,0)
+                                                           +new Vector2((Input.GetKey(KeyCode.A))?1:0,0)
+                                                           );
+
+
     }
 
     public void SetButton(ButtonsName buttonsName, ButtonState buttonState)

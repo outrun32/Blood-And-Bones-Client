@@ -17,10 +17,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerManager _playerPrefab;
     [SerializeField] private CinemachineFreeLook _cameraFreeLook;
     [SerializeField] private CinemachineVirtualCamera _cameraVirtual;
-    
 
     public static Dictionary<int, PlayerManager> Players = new Dictionary<int, PlayerManager>();
 
+    public static bool CheckPlayer(int ID)
+    {
+        return(Players.ContainsKey(ID));
+    }
     
 
     private void Awake()
@@ -37,7 +40,6 @@ public class GameManager : MonoBehaviour
             Destroy(this);
         }
     }
-
     private void Start()
     {
         Permission.RequestUserPermission("android.permission.INTERNET");

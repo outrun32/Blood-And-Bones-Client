@@ -38,7 +38,7 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         Vector3 position = _packet.ReadVector3();
 
-        GameManager.Players[_id].SetPosition(position);
+        if (GameManager.CheckPlayer(_id))GameManager.Players[_id].SetPosition(position);
     }
 
     public static void PlayerRotation(Packet _packet)
@@ -46,7 +46,7 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
         Quaternion _rotation = _packet.ReadQuaternion();
 
-        GameManager.Players[_id].SetRotation(_rotation);
+        if (GameManager.CheckPlayer(_id))GameManager.Players[_id].SetRotation(_rotation);
     }
 
     public static void PlayerDisconnected(Packet _packet)
@@ -54,23 +54,23 @@ public class ClientHandle : MonoBehaviour
         int _id = _packet.ReadInt();
 
         Destroy(GameManager.Players[_id].gameObject);
-        GameManager.Players.Remove(_id);
+        if (GameManager.CheckPlayer(_id))GameManager.Players.Remove(_id);
     }
     public static void PlayerAnimation(Packet _packet)
     {
         int _id = _packet.ReadInt();
         AnimationModel _animationModel = _packet.ReadAnimationModel();
-        GameManager.Players[_id].SeAnimation(_animationModel);
+        if (GameManager.CheckPlayer(_id)) GameManager.Players[_id].SeAnimation(_animationModel);
     }
     public static void PlayerInfo(Packet _packet)
     {
         int _id = _packet.ReadInt();
         float health = _packet.ReadFloat(), mana = _packet.ReadFloat();
-        GameManager.Players[_id].SetInfo(health, mana);
+        if (GameManager.CheckPlayer(_id))GameManager.Players[_id].SetInfo(health, mana);
     }
     public static void PlayerDeath(Packet _packet)
     {
         int _id = _packet.ReadInt();
-        GameManager.Players[_id].Death();
+        if (GameManager.CheckPlayer(_id))GameManager.Players[_id].Death();
     }
 }

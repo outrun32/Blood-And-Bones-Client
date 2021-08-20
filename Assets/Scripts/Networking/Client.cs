@@ -10,8 +10,8 @@ public class Client : MonoBehaviour
     public static Client instance;
     public static int dataBufferSize = 4096;
 
-    public string ip = "127.0.0.1";
-    public int port = 26950;
+    public string ip;
+    public int port;
     public int myId = 0;
     public TCP tcp;
     public UDP udp;
@@ -34,7 +34,17 @@ public class Client : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void SetIP(string IP)
+    {
+        ip = IP;
+    }
+
+    public void SetPort(string _port)
+    {
+        port = int.Parse(_port);
+    }
+
+    private void InitializePorts()
     {
         tcp = new TCP();
         udp = new UDP();
@@ -47,6 +57,7 @@ public class Client : MonoBehaviour
 
     public void ConnectToServer()
     {
+        InitializePorts();
         InitializeClientData();
 
         _isConnected = true;

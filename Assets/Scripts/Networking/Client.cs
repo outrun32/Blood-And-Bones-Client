@@ -55,6 +55,11 @@ public class Client : MonoBehaviour
         Disconnect();
     }
 
+    private void OnApplicationPause(bool pause)
+    {
+        Disconnect();
+    }
+
     public void ConnectToServer()
     {
         InitializePorts();

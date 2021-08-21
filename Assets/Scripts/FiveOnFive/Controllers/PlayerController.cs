@@ -6,10 +6,23 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    
+    private bool _isAim = false;
+    private bool _isCheckedAim = false;
+    private float _maxHealth, _health, _maxMana, _mana;
+    private bool _IsDeath = false;
+    private Transform _aimTarget;
+    private InputModel _inputModel = default;
+   
+    [SerializeField] private float _speedRotation = 10;
+    [SerializeField] private Vector3 cameraTransformForward;
+    
+    [Header("Inputs")]
+    [SerializeField] private bool _isMobile = true;
     [SerializeField] private SInputControllerPC _sInputControllerPC;
     private IInput _inputControllerMobile;
     private IInput _inputControllerPC;
-
+    [Header("Player")]
     private CinemachineFreeLook _freeLookCameraController;
     private CinemachineVirtualCamera _virtualCameraController;
     private InputViewMobile _inputViewMobile;
@@ -17,37 +30,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private PlayerManager _playerManager;
     [SerializeField] private ClientPlayerController _clientPlayerController;
-    [SerializeField] private FloatVar SpeedX, SpeedY;
     
-    private bool _isAim = false;
-    private bool _isCheckedAim = false;
-    
-    [SerializeField] private Vector3 cameraTransformForward;
-    private Transform _aimTarget;
-
-    [SerializeField] private bool _isMobile = true;
-    [SerializeField] private float _speedRotation = 10;
     [SerializeField] public AnimationController AnimationController;
     private HudController _hudController;
     public PlayerManager PlayerManager => _playerManager;
-    private InputModel _inputModel = default;
-
-    private float _maxHealth, _health, _maxMana, _mana;
-    private bool _IsDeath = false;
-
-    public void SetStartInfo(float maxHealth, float maxMana, float health,  float mana)
-    {
-        _maxHealth = maxHealth;
-        _health = health;
-        _maxMana = maxMana;
-        _mana = mana;
-    }
-
-    public void SetInfo(float health,float mana)
-    {
-        _health = health;
-        _mana = mana;
-    }
     public InputModel InputModel
     {
         get
@@ -146,8 +132,6 @@ public class PlayerController : MonoBehaviour
             case AxesName.DirectionMove:
                 if (axis.magnitude > 0.1f) _inputModel.JoystickAxis = axis;
                 else _inputModel.JoystickAxis = Vector2.zero;
-                SpeedX.Value = _inputModel.JoystickAxis.x;
-                SpeedY.Value = _inputModel.JoystickAxis.y;
                 if(_inputModel.JoystickAxis != Vector2.zero)
                     cameraTransformForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);;
                 break;
@@ -195,7 +179,6 @@ public class PlayerController : MonoBehaviour
                 break;
         }
     }
-    [ContextMenu("Aim")]
     public void Aim(Transform obj)
     {
         _aimTarget = obj;
@@ -203,7 +186,6 @@ public class PlayerController : MonoBehaviour
         _freeLookCameraController.gameObject.SetActive(false);
         _virtualCameraController.gameObject.SetActive(true);
     }
-    [ContextMenu("NotAim")]
     public void NotAim()
     {
         _isAim = false;
@@ -226,6 +208,19 @@ public class PlayerController : MonoBehaviour
         }
         _playerManager.DeathEvent -= Death;
     }
+  
+    public void SetStartInfo(float maxHealth, float maxMana, float health,  float mana)
+    {
+        _maxHealth = maxHealth;
+        _health = health;
+        _maxMana = maxMana;
+        _mana = mana;
+    }
 
+    public void SetInfo(float health,float mana)
+    {
+        _health = health;
+        _mana = mana;
+    }
     
 }

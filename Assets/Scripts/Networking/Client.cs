@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Net;
 using System.Net.Sockets;
 using System;
+using All.ScriptableObjects.Scripts;
 
 public class Client : MonoBehaviour
 {
@@ -16,13 +17,21 @@ public class Client : MonoBehaviour
     public TCP tcp;
     public UDP udp;
 
+    public SPlayerSettings playerSettings;
+
     private bool _isConnected = false;
 
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
 
+    private string playfabID;
+
+    public string PlayfabID { get => playfabID; private set => playfabID = value; }
+
     private void Awake()
     {
+        PlayfabID = playerSettings.PlayFabID;
+
         if (instance == null)
         {
             instance = this;
@@ -32,6 +41,11 @@ public class Client : MonoBehaviour
             Debug.Log("Instance already exists, destroying object!");
             Destroy(this);
         }
+    }
+
+    public void SetPlayFabID(string _id)
+    {
+        PlayfabID = _id;
     }
 
     public void SetIP(string IP)

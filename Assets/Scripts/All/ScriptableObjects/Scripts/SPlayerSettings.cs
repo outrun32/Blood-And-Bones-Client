@@ -6,5 +6,7 @@ namespace All.ScriptableObjects.Scripts
     public class SPlayerSettings : ScriptableObject
     {
         public SCharacter Character;
+
+        public string PlayFabID;
     }
 }

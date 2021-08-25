@@ -1,226 +1,227 @@
-using System.Collections;
 using Cinemachine;
 using Networking;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+namespace FiveOnFive.Controllers
 {
+    public class PlayerController : MonoBehaviour
+    {
     
-    private bool _isAim = false;
-    private bool _isCheckedAim = false;
-    private float _maxHealth, _health, _maxMana, _mana;
-    private bool _IsDeath = false;
-    private Transform _aimTarget;
-    private InputModel _inputModel = default;
+        private bool _isAim = false;
+        private bool _isCheckedAim = false;
+        private float _maxHealth, _health, _maxMana, _mana;
+        private bool _IsDeath = false;
+        private Transform _aimTarget;
+        private InputModel _inputModel = default;
    
-    [SerializeField] private float _speedRotation = 10;
-    [SerializeField] private Vector3 cameraTransformForward;
+        [SerializeField] private float _speedRotation = 10;
+        [SerializeField] private Vector3 cameraTransformForward;
     
-    [Header("Inputs")]
-    [SerializeField] private bool _isMobile = true;
-    [SerializeField] private SInputControllerPC _sInputControllerPC;
-    private IInput _inputControllerMobile;
-    private IInput _inputControllerPC;
-    [Header("Player")]
-    private CinemachineFreeLook _freeLookCameraController;
-    private CinemachineVirtualCamera _virtualCameraController;
-    private InputViewMobile _inputViewMobile;
-    [SerializeField] private AutoAim _autoAim;
-    [SerializeField] private Animator _animator;
-    [SerializeField] private PlayerManager _playerManager;
-    [SerializeField] private ClientPlayerController _clientPlayerController;
+        [Header("Inputs")]
+        [SerializeField] private bool _isMobile = true;
+        [SerializeField] private SInputControllerPC _sInputControllerPC;
+        private IInput _inputControllerMobile;
+        private IInput _inputControllerPC;
+        [Header("Player")]
+        private CinemachineFreeLook _freeLookCameraController;
+        private CinemachineVirtualCamera _virtualCameraController;
+        private InputViewMobile _inputViewMobile;
+        [SerializeField] private AutoAim _autoAim;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private PlayerManager _playerManager;
+        [SerializeField] private ClientPlayerController _clientPlayerController;
     
-    [SerializeField] public AnimationController AnimationController;
-    private HudController _hudController;
-    public PlayerManager PlayerManager => _playerManager;
-    public InputModel InputModel
-    {
-        get
+        [SerializeField] public AnimationController AnimationController;
+        private HudController _hudController;
+        public PlayerManager PlayerManager => _playerManager;
+        public InputModel InputModel
         {
-            _inputModel.rotation = transform.rotation;
-            return _inputModel;
-        }
-    }
-    void Start()
-    {
-        if (_isMobile)
-        {
-            _inputControllerMobile = new InputControllerMobile(_inputViewMobile);
-            _inputControllerMobile.AxisCodeInputReturn += CheckAxis;
-            _inputControllerMobile.ButtonCodeInputReturn += CheckButtons;
-        }
-        else
-        {
-            _inputControllerPC = new InputControllerPC(_sInputControllerPC);
-            _inputControllerPC.AxisCodeInputReturn += CheckAxis;
-            _inputControllerPC.ButtonCodeInputReturn += CheckButtons;
-        }
-
-        if (_isMobile)
-        {
-            _inputControllerMobile.Start();
-        }
-        else
-        {
-            _inputControllerPC.Start();
-        }
-
-        _playerManager.DeathEvent += Death;
-    }
-
-    private void Update()
-    {
-        if (!_IsDeath)
-        {
-            //_freeLookCameraController.transform.position = transform.position;
-            Vector3 _transformPosition = transform.position;
-            if (_isAim)
+            get
             {
-                gameObject.transform.LookAt(_transformPosition + Vector3.Lerp(transform.forward,
-                    GetForward(_aimTarget.position - _transformPosition), _speedRotation * Time.deltaTime));
+                _inputModel.rotation = transform.rotation;
+                return _inputModel;
             }
-            else
-                gameObject.transform.LookAt(_transformPosition + Vector3.Lerp(transform.forward,
-                    cameraTransformForward.normalized, _speedRotation * Time.deltaTime));
         }
-    }
-
-    private void FixedUpdate()
-    {
-        if (!_IsDeath)
+        void Start()
         {
             if (_isMobile)
             {
-                _inputControllerMobile.FixedUpdate();
+                _inputControllerMobile = new InputControllerMobile(_inputViewMobile);
+                _inputControllerMobile.AxisCodeInputReturn += CheckAxis;
+                _inputControllerMobile.ButtonCodeInputReturn += CheckButtons;
             }
             else
             {
-                _inputControllerPC.FixedUpdate();
+                _inputControllerPC = new InputControllerPC(_sInputControllerPC);
+                _inputControllerPC.AxisCodeInputReturn += CheckAxis;
+                _inputControllerPC.ButtonCodeInputReturn += CheckButtons;
             }
+
+            if (_isMobile)
+            {
+                _inputControllerMobile.Start();
+            }
+            else
+            {
+                _inputControllerPC.Start();
+            }
+
+            _playerManager.DeathEvent += Death;
         }
-    }
 
-    public Vector3 GetForward(Vector3 position)
-    {
-        return new Vector3(position.normalized.x, transform.forward.y, position.normalized.z);
-    }
-    public void SetInputViewMobile(InputViewMobile value)
-    {
-        _inputViewMobile = value;
-    }
-    public void SetCameraController(CinemachineFreeLook cameraController, CinemachineVirtualCamera virtualCameraController)
-    {
-        _freeLookCameraController = cameraController;
-        _virtualCameraController = virtualCameraController;
-    }
-    public void SetHud(HudController hudController)
-    {
-        _hudController = hudController;
-    }
-
-    void CheckAxis(AxesName nameAxis, Vector2 axis)
-    {
-        if (nameAxis != AxesName.CameraMovePressed)
+        private void Update()
         {
-            _freeLookCameraController.m_XAxis.m_InputAxisValue = 0;
-            _freeLookCameraController.m_YAxis.m_InputAxisValue = 0;
-            _isCheckedAim = false;
-        }
-        switch (nameAxis)
-        {
-            case AxesName.DirectionMove:
-                if (axis.magnitude > 0.1f) _inputModel.JoystickAxis = axis;
-                else _inputModel.JoystickAxis = Vector2.zero;
-                if(_inputModel.JoystickAxis != Vector2.zero)
-                    cameraTransformForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);;
-                break;
-            case AxesName.CameraMovePressed:
-                if (!_isAim)
-                {
-                    _freeLookCameraController.m_XAxis.m_InputAxisValue = axis.x;
-                    _freeLookCameraController.m_YAxis.m_InputAxisValue = axis.y;
-                }
-                break;
-            case AxesName.CameraMoveOnUp:
-                if (axis != Vector2.zero && _isAim)
-                {
-                    if (axis.x > 0) _autoAim.Last();
-                    if (axis.x < 0) _autoAim.Next();
-                }
-                break;
-        } 
-    }
-
-    void CheckButtons(ButtonsName nameButton, ButtonState state)
-    {
-        Debug.Log(nameButton);
-        Debug.Log(state);
-        switch (nameButton)
-        {
-            case ButtonsName.Atack:
-                _inputModel.IsAttacking = state == ButtonState.OnDown;
-                break;  
-            case ButtonsName.Jump:
-                _inputModel.IsJumping = state == ButtonState.OnDown;
-                break;
-            case ButtonsName.Aim:
+            if (!_IsDeath)
+            {
+                //_freeLookCameraController.transform.position = transform.position;
+                Vector3 _transformPosition = transform.position;
                 if (_isAim)
                 {
-                    NotAim();
+                    gameObject.transform.LookAt(_transformPosition + Vector3.Lerp(transform.forward,
+                        GetForward(_aimTarget.position - _transformPosition), _speedRotation * Time.deltaTime));
+                }
+                else
+                    gameObject.transform.LookAt(_transformPosition + Vector3.Lerp(transform.forward,
+                        cameraTransformForward.normalized, _speedRotation * Time.deltaTime));
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            if (!_IsDeath)
+            {
+                if (_isMobile)
+                {
+                    _inputControllerMobile.FixedUpdate();
                 }
                 else
                 {
-                    _autoAim.Aim();
+                    _inputControllerPC.FixedUpdate();
                 }
-                break;
-            case ButtonsName.Block:
-                _inputModel.IsBlocking = state == ButtonState.OnDown;
-                break;
+            }
         }
-    }
-    public void Aim(Transform obj)
-    {
-        _aimTarget = obj;
-        _isAim = true;
-        _freeLookCameraController.gameObject.SetActive(false);
-        _virtualCameraController.gameObject.SetActive(true);
-    }
-    public void NotAim()
-    {
-        _isAim = false;
-        _freeLookCameraController.gameObject.SetActive(true);
-        _virtualCameraController.gameObject.SetActive(false);
-    }
 
-    public void Death()
-    {
-        _IsDeath = true;
-        if (_isMobile)
+        public Vector3 GetForward(Vector3 position)
         {
-            _inputControllerMobile.AxisCodeInputReturn -= CheckAxis;
-            _inputControllerMobile.ButtonCodeInputReturn -= CheckButtons;
+            return new Vector3(position.normalized.x, transform.forward.y, position.normalized.z);
         }
-        else
+        public void SetInputViewMobile(InputViewMobile value)
         {
-            _inputControllerPC.AxisCodeInputReturn -= CheckAxis;
-            _inputControllerPC.ButtonCodeInputReturn -= CheckButtons;
+            _inputViewMobile = value;
         }
-        _playerManager.DeathEvent -= Death;
-    }
+        public void SetCameraController(CinemachineFreeLook cameraController, CinemachineVirtualCamera virtualCameraController)
+        {
+            _freeLookCameraController = cameraController;
+            _virtualCameraController = virtualCameraController;
+        }
+        public void SetHud(HudController hudController)
+        {
+            _hudController = hudController;
+        }
+
+        void CheckAxis(AxesName nameAxis, Vector2 axis)
+        {
+            if (nameAxis != AxesName.CameraMovePressed)
+            {
+                _freeLookCameraController.m_XAxis.m_InputAxisValue = 0;
+                _freeLookCameraController.m_YAxis.m_InputAxisValue = 0;
+                _isCheckedAim = false;
+            }
+            switch (nameAxis)
+            {
+                case AxesName.DirectionMove:
+                    if (axis.magnitude > 0.1f) _inputModel.JoystickAxis = axis;
+                    else _inputModel.JoystickAxis = Vector2.zero;
+                    if(_inputModel.JoystickAxis != Vector2.zero)
+                        cameraTransformForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);;
+                    break;
+                case AxesName.CameraMovePressed:
+                    if (!_isAim)
+                    {
+                        _freeLookCameraController.m_XAxis.m_InputAxisValue = axis.x;
+                        _freeLookCameraController.m_YAxis.m_InputAxisValue = axis.y;
+                    }
+                    break;
+                case AxesName.CameraMoveOnUp:
+                    if (axis != Vector2.zero && _isAim)
+                    {
+                        if (axis.x > 0) _autoAim.Last();
+                        if (axis.x < 0) _autoAim.Next();
+                    }
+                    break;
+            } 
+        }
+
+        void CheckButtons(ButtonsName nameButton, ButtonState state)
+        {
+            Debug.Log(nameButton);
+            Debug.Log(state);
+            switch (nameButton)
+            {
+                case ButtonsName.Atack:
+                    _inputModel.IsAttacking = state == ButtonState.OnDown;
+                    break;  
+                case ButtonsName.Jump:
+                    _inputModel.IsJumping = state == ButtonState.OnDown;
+                    break;
+                case ButtonsName.Aim:
+                    if (_isAim)
+                    {
+                        NotAim();
+                    }
+                    else
+                    {
+                        _autoAim.Aim();
+                    }
+                    break;
+                case ButtonsName.Block:
+                    _inputModel.IsBlocking = state == ButtonState.OnDown;
+                    break;
+            }
+        }
+        public void Aim(Transform obj)
+        {
+            _aimTarget = obj;
+            _isAim = true;
+            _freeLookCameraController.gameObject.SetActive(false);
+            _virtualCameraController.gameObject.SetActive(true);
+        }
+        public void NotAim()
+        {
+            _isAim = false;
+            _freeLookCameraController.gameObject.SetActive(true);
+            _virtualCameraController.gameObject.SetActive(false);
+        }
+
+        public void Death()
+        {
+            _IsDeath = true;
+            if (_isMobile)
+            {
+                _inputControllerMobile.AxisCodeInputReturn -= CheckAxis;
+                _inputControllerMobile.ButtonCodeInputReturn -= CheckButtons;
+            }
+            else
+            {
+                _inputControllerPC.AxisCodeInputReturn -= CheckAxis;
+                _inputControllerPC.ButtonCodeInputReturn -= CheckButtons;
+            }
+            _playerManager.DeathEvent -= Death;
+        }
   
-    public void SetStartInfo(float maxHealth, float maxMana, float health,  float mana)
-    {
-        _maxHealth = maxHealth;
-        _health = health;
-        _maxMana = maxMana;
-        _mana = mana;
-    }
+        public void SetStartInfo(float maxHealth, float maxMana, float health,  float mana)
+        {
+            _maxHealth = maxHealth;
+            _health = health;
+            _maxMana = maxMana;
+            _mana = mana;
+        }
 
-    public void SetInfo(float health,float mana)
-    {
-        _health = health;
-        _mana = mana;
-    }
+        public void SetInfo(float health,float mana)
+        {
+            _health = health;
+            _mana = mana;
+        }
     
+    }
 }

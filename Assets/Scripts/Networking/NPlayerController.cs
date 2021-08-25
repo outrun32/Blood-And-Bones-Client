@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using FiveOnFive.Controllers;
 using UnityEngine;
 
 public class NPlayerController : MonoBehaviour

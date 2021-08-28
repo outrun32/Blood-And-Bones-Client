@@ -10,10 +10,11 @@ public class Client : MonoBehaviour
 {
     public static Client instance;
     public static int dataBufferSize = 4096;
-
+    public bool AutoStart;
     public string ip;
     public int port;
     public int myId = 0;
+    public string Username => playerSettings.Username;
     public TCP tcp;
     public UDP udp;
 
@@ -41,6 +42,11 @@ public class Client : MonoBehaviour
             Debug.Log("Instance already exists, destroying object!");
             Destroy(this);
         }
+    }
+
+    private void Start()
+    {
+        if (AutoStart) ConnectToServer();
     }
 
     public void SetPlayFabID(string _id)
@@ -313,7 +319,9 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected},
             { (int)ServerPackets.playerAnimation, ClientHandle.PlayerAnimation},
             { (int)ServerPackets.playerInfo, ClientHandle.PlayerInfo},
-            { (int)ServerPackets.playerDeath, ClientHandle.PlayerDeath}
+            { (int)ServerPackets.playerDeath, ClientHandle.PlayerDeath},
+            { (int)ServerPackets.setTimerCounter, ClientHandle.SetCounterTimer},
+            { (int)ServerPackets.startSession, ClientHandle.StartSession}
         };
         Debug.Log("Initialized packets.");
     }

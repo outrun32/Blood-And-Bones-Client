@@ -13,7 +13,9 @@ public enum ServerPackets
     playerDisconnected,
     playerAnimation,
     playerInfo,
-    playerDeath
+    playerDeath,
+    setTimerCounter,
+    startSession
 }
 
 /// <summary>Sent from client to server.</summary>

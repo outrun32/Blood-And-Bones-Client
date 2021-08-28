@@ -1,83 +1,71 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using All.Controllers;
+using All.ScriptableObjects.Scripts;
+using All.Views;
 using Cinemachine;
 using FiveOnFive.Controllers;
-using Networking;
 using UnityEngine;
-using UnityEngine.Android;
 
-public class GameManager : MonoBehaviour
+namespace Networking
 {
-    
-    private static GameManager _instance;
-    public static GameManager Instance => _instance;
-    private PlayerController _playerController;
-    [SerializeField] private InputViewMobile _inputViewMobile;
-    [SerializeField] private HudController _hud;
-    [SerializeField] private PlayerController _localPlayerPrefab;
-    [SerializeField] private PlayerManager _playerPrefab;
-    [SerializeField] private CinemachineFreeLook _cameraFreeLook;
-    [SerializeField] private CinemachineVirtualCamera _cameraVirtual;
-
-    public static Dictionary<int, PlayerManager> Players = new Dictionary<int, PlayerManager>();
-
-    public static bool CheckPlayer(int ID)
+    public class GameManager : MonoBehaviour
     {
-        return(Players.ContainsKey(ID));
-    }
+        private static GameManager _instance;
+        public static GameManager Instance => _instance;
+        [SerializeField]private SpawnController _spawnController;
+        [SerializeField] private SCharacters _sCharacters;
+        [SerializeField] private InputViewMobile _inputViewMobile;
+        [SerializeField] private CountDownView _countDownView;
+        [SerializeField] private HudController _hud;
+        [SerializeField] private CinemachineFreeLook _cameraFreeLook;
+        [SerializeField] private CinemachineVirtualCamera _cameraVirtual;
 
-    public void Disconnect()
-    {
-        Client.instance.Disconnect();
-    }
-    private void Awake()
-    {
+        public static Dictionary<int, PlayerManager> Players = new Dictionary<int, PlayerManager>();
+
+        public static bool CheckPlayer(int ID)
+        {
+            return(Players.ContainsKey(ID));
+        }
+
+        public void Disconnect()
+        {
+            Client.instance.Disconnect();
+        }
+        private void Awake()
+        {
         
-        //Permission.RequestUserPermission(Permission.Camera);
-        if (_instance == null)
-        {
-            _instance = this;
-        }
-        else if (_instance != this)
-        {
-            Debug.LogError("Instance already exists, destroying object!");
-            Destroy(this);
-        }
-    }
-    private void Start()
-    {
-        Permission.RequestUserPermission("android.permission.INTERNET");
-    }
+            //Permission.RequestUserPermission(Permission.Camera);
+            if (_instance == null)
+            {
+                _instance = this;
+            }
+            else if (_instance != this)
+            {
+                Debug.LogError("Instance already exists, destroying object!");
+                Destroy(this);
+            }
 
-    public void Aim()
-    {
-        
-    }
-    public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation)
-    {
-        PlayerManager player;
-        if (id == Client.instance.myId)
-        {
-            _playerController = Instantiate(_localPlayerPrefab, position, rotation);
-            player = _playerController.PlayerManager;
-            player.SetHud(_hud);
-            _playerController.SetCameraController(_cameraFreeLook, _cameraVirtual);
-            _playerController.SetInputViewMobile(_inputViewMobile);
-            Transform _playerControllerTransform = _playerController.transform;
-            _cameraFreeLook.Follow = _playerControllerTransform;
-            _cameraFreeLook.LookAt = _playerControllerTransform;
-            _cameraVirtual.Follow = _playerControllerTransform;
-            _cameraVirtual.LookAt = _playerControllerTransform;
+            _spawnController.Init(_sCharacters, _hud,_cameraFreeLook, _cameraVirtual, _inputViewMobile);
+            _spawnController.ReturnPlayerManagerEvent += ReturnedPlayerManager;
         }
-        else
+        public void ReturnedPlayerManager(int id, PlayerManager player)
         {
-            player = Instantiate(_playerPrefab, position, rotation);
+            if (!Players.ContainsKey(id)) Players.Add(id, player);
+            else Players[id] = player;
+        }
+        public void SpawnPlayer(int id, string username, Vector3 position, Quaternion rotation)
+        {
+            _spawnController.SpawnPlayer(id, username, position, rotation, 0); //TODO: Change when i can select Character
         }
 
-        player.SetID(id);;
-        player.SetUsername(username);
-        if (!Players.ContainsKey(id)) Players.Add(id, player);
-        else Players[id] = player;
+        public void SetCountDownTimer(int value)
+        {
+            _countDownView.SetCount(value);
+        }
+
+        public void StartSession()
+        {   
+            _countDownView.StopCounter();
+        }
     }
 }

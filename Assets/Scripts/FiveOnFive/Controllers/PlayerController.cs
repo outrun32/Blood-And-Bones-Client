@@ -8,7 +8,6 @@ namespace FiveOnFive.Controllers
     {
     
         private bool _isAim = false;
-        private bool _isCheckedAim = false;
         private float _maxHealth, _health, _maxMana, _mana;
         private bool _IsDeath = false;
         private Transform _aimTarget;
@@ -125,7 +124,6 @@ namespace FiveOnFive.Controllers
             {
                 _freeLookCameraController.m_XAxis.m_InputAxisValue = 0;
                 _freeLookCameraController.m_YAxis.m_InputAxisValue = 0;
-                _isCheckedAim = false;
             }
             switch (nameAxis)
             {

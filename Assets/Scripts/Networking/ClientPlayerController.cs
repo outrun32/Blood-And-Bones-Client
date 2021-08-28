@@ -5,15 +5,13 @@ using UnityEngine;
 
 public class ClientPlayerController : MonoBehaviour
 {
-    private bool _updatePos, _updateRot;
+    private bool  _updateRot;
     [SerializeField]private float _speedUpdatePos;
     private Vector3 _position;
     private Quaternion _rotation;
     public void SetPosition(Vector3 position)
     {
         _position = position;
-        //transform.position = _position;
-        _updatePos = true;
     }
 
     public void SetRotation(Quaternion rotation)
@@ -24,7 +22,6 @@ public class ClientPlayerController : MonoBehaviour
 
     private void Update()
     {
-        //transform.position = _position;
         transform.position = Vector3.Lerp(transform.position, _position, _speedUpdatePos * Time.deltaTime);
         if (_updateRot)
         {

@@ -15,7 +15,7 @@ namespace FiveOnFive.Controllers
    
         [SerializeField] private float _speedRotation = 10;
         [SerializeField] private Vector3 cameraTransformForward;
-    
+        [SerializeField] private Vector2 _cameraRotationAccelerate;
         [Header("Inputs")]
         [SerializeField] private bool _isMobile = true;
         [SerializeField] private SInputControllerPC _sInputControllerPC;
@@ -136,8 +136,8 @@ namespace FiveOnFive.Controllers
                 case AxesName.CameraMovePressed:
                     if (!_isAim)
                     {
-                        _freeLookCameraController.m_XAxis.m_InputAxisValue = axis.x;
-                        _freeLookCameraController.m_YAxis.m_InputAxisValue = axis.y;
+                        _freeLookCameraController.m_XAxis.m_InputAxisValue = axis.x * _cameraRotationAccelerate.x;
+                        _freeLookCameraController.m_YAxis.m_InputAxisValue = axis.y * _cameraRotationAccelerate.y;
                     }
                     break;
                 case AxesName.CameraMoveOnUp:

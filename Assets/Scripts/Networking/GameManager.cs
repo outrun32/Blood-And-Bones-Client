@@ -33,8 +33,6 @@ namespace Networking
         }
         private void Awake()
         {
-        
-            //Permission.RequestUserPermission(Permission.Camera);
             if (_instance == null)
             {
                 _instance = this;
@@ -62,7 +60,6 @@ namespace Networking
         {
             _countDownView.SetCount(value);
         }
-
         public void StartSession()
         {   
             _countDownView.StopCounter();

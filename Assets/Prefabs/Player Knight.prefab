@@ -201,16 +201,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2983ae4892c20ee4998d3e0e036cf611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _speedRotation: 10
+  cameraTransformForward: {x: 0, y: 0, z: 0}
+  _cameraRotationAccelerate: {x: -0.1, y: 0.1}
+  _isMobile: 1
   _sInputControllerPC: {fileID: 11400000, guid: 9ea6795a39525f7479e8748b17503775, type: 2}
   _autoAim: {fileID: 1541377108054759950}
   _animator: {fileID: 9166284468183564613}
   _playerManager: {fileID: 1898050353326788722}
   _clientPlayerController: {fileID: 6918086751529813239}
-  SpeedX: {fileID: 11400000, guid: 61ac778a0954276478fb8a55364d9032, type: 2}
-  SpeedY: {fileID: 11400000, guid: 8b3ef3a37113fbb41a00db984a790635, type: 2}
-  cameraTransformForward: {x: 0, y: 0, z: 0}
-  _isMobile: 1
-  _speedRotation: 10
   AnimationController: {fileID: 8736105866434265553}
 --- !u!114 &7534519584189714193
 MonoBehaviour:

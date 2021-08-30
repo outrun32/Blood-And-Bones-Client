@@ -11,12 +11,13 @@ using UnityEngine.UI;
 public class PlayFabAuthManager : MonoBehaviour
 {
     public SPlayerSettings playerSettings;
-
+    public InputField inputField;
     PlayFabAuthService _authService;
 
     public Button connectButton;
     void Start()
-    {
+    {   
+        inputField.onEndEdit.AddListener(SetUsername);
         _authService = PlayFabAuthService.Instance;
         PlayFabAuthService.OnDisplayAuthentication += OnDisplayAuth;
         PlayFabAuthService.OnLoginSuccess += OnLoginSuccess;
@@ -30,6 +31,10 @@ public class PlayFabAuthManager : MonoBehaviour
         _authService.Authenticate(Authtypes.Silent);
     }
 
+    private void SetUsername(string value)
+    {
+        playerSettings.Username = value;
+    }
     
     private void OnLoginSuccess(LoginResult loginResult)
     {

@@ -1,3 +1,5 @@
+using FiveOnFive.Controllers;
+using Networking;
 using UnityEngine;
 
 namespace All.ScriptableObjects.Scripts
@@ -6,6 +8,8 @@ namespace All.ScriptableObjects.Scripts
 
     public class SCharacter : ScriptableObject
     {
+        public PlayerController LocalPlayer;
+        public PlayerManager GlobalPLayer;
         public int SpawnIndex;
         public float MaxHealth;
         public float StartHealth;

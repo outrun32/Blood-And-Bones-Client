@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Net;
+using Networking;
 
 public class ClientHandle : MonoBehaviour
 {
@@ -33,6 +34,16 @@ public class ClientHandle : MonoBehaviour
         GameManager.Players[_id].SetStartInfo(maxHealth,maxMana,startHealth,startMana);
     }
 
+    public static void SetCounterTimer(Packet _packet)
+    {
+        int count = _packet.ReadInt();
+        GameManager.Instance.SetCountDownTimer(count);
+    }
+
+    public static void StartSession(Packet _packet)
+    {
+        GameManager.Instance.StartSession();
+    }
     public static void PlayerPosition(Packet _packet)
     {
         int _id = _packet.ReadInt();

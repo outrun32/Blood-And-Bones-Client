@@ -8,5 +8,6 @@ namespace All.ScriptableObjects.Scripts
         public SCharacter Character;
 
         public string PlayFabID;
+        public string Username = "Noname";
     }
 }

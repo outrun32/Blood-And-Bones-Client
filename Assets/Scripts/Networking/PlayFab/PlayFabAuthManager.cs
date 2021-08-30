@@ -6,11 +6,14 @@ using PlayFab.Helpers;
 using PlayFab.ClientModels;
 using All.ScriptableObjects.Scripts;
 using UnityEngine.SceneManagement;
+using PlayFab.MultiplayerModels;
 using UnityEngine.UI;
 
 public class PlayFabAuthManager : MonoBehaviour
 {
     public SPlayerSettings playerSettings;
+
+    public Configuration configuration;
 
     PlayFabAuthService _authService;
 
@@ -41,5 +44,25 @@ public class PlayFabAuthManager : MonoBehaviour
     public void ChangeToMainScene()
     {
         SceneManager.LoadScene("Main");
+    }
+
+    private void RequestMultiplayerServer()
+    {
+        Debug.Log("Requseting Multiplayer Server");
+        RequestMultiplayerServerRequest requestData = new RequestMultiplayerServerRequest();
+        requestData.BuildId = configuration.buildID;
+        requestData.SessionId = System.Guid.NewGuid().ToString();
+        requestData.PreferredRegions = new List<AzureRegion>() { AzureRegion.NorthEurope };
+        PlayFabMultiplayerAPI.RequestMultiplayerServer(requestData, OnRequestMultiplayerServer, OnRequestMultiplayerServerError);
+    }
+
+    private void OnRequestMultiplayerServer(RequestMultiplayerServerResponse response)
+    {
+
+    }
+
+    private void OnRequestMultiplayerServerError(PlayFabError error)
+    {
+        Debug.LogError($"Error requesting multiplayer server: {error}");
     }
 }

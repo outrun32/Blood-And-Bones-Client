@@ -15,6 +15,8 @@ public class PlayFabAuthManager : MonoBehaviour
 
     public Configuration configuration;
 
+    public InputField inputField;
+
     PlayFabAuthService _authService;
 
     public Button connectButton;
@@ -24,7 +26,6 @@ public class PlayFabAuthManager : MonoBehaviour
         _authService = PlayFabAuthService.Instance;
         PlayFabAuthService.OnDisplayAuthentication += OnDisplayAuth;
         PlayFabAuthService.OnLoginSuccess += OnLoginSuccess;
-
 
         _authService.Authenticate();
     }
@@ -44,6 +45,7 @@ public class PlayFabAuthManager : MonoBehaviour
         Debug.Log($"Login successful, login id: {loginResult.PlayFabId}");
         playerSettings.PlayFabID = loginResult.PlayFabId;
         connectButton.interactable = true;
+        RequestMultiplayerServer();
     }
 
     public void ChangeToMainScene()
@@ -63,7 +65,7 @@ public class PlayFabAuthManager : MonoBehaviour
 
     private void OnRequestMultiplayerServer(RequestMultiplayerServerResponse response)
     {
-
+        Debug.Log(response.IPV4Address);
     }
 
     private void OnRequestMultiplayerServerError(PlayFabError error)

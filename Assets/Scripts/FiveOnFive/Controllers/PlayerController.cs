@@ -132,6 +132,7 @@ namespace FiveOnFive.Controllers
                     else _inputModel.JoystickAxis = Vector2.zero;
                     if(_inputModel.JoystickAxis != Vector2.zero)
                         cameraTransformForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);;
+                    AnimationController.SetIsGo(axis.magnitude > 0.1f);
                     break;
                 case AxesName.CameraMovePressed:
                     if (!_isAim)

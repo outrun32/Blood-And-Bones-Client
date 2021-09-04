@@ -17,4 +17,9 @@ public class AnimationController: MonoBehaviour
         _animator.SetBool("BlockImpact", inputModel.IsBlockImpact);
         _animator.SetBool("Death", inputModel.IsDeath);
     }
+
+    public void SetIsGo(bool value)
+    {
+        _animator.SetBool("isGo", value);
+    }
 }

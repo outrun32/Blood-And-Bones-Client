@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2983ae4892c20ee4998d3e0e036cf611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speedRotation: 10
+  _speedRotation: 3
   cameraTransformForward: {x: 0, y: 0, z: 0}
   _cameraRotationAccelerate: {x: -0.1, y: 0.1}
   _isMobile: 1

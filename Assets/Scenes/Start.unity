@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -695,6 +695,7 @@ MonoBehaviour:
   playerSettings: {fileID: 11400000, guid: 07e0f1cf05771e9418ba8bc95e925ffe, type: 2}
   configuration: {fileID: 1348821964}
   inputField: {fileID: 168525347}
+  IsAutorizeServer: 0
   connectButton: {fileID: 1023785763}
 --- !u!4 &1348821963
 Transform:
@@ -722,7 +723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c106d4da5640874468d47ebacada1078, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildID: 50f3e246-5727-407c-bc11-37bfbfadcb0e
+  buildID: 14f38160-70c8-49cc-b6bf-91240fdbb12f
   ipAddress: 
   port: 0
   playfabDebugging: 0

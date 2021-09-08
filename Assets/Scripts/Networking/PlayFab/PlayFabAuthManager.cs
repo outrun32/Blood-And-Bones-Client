@@ -16,6 +16,7 @@ public class PlayFabAuthManager : MonoBehaviour
     public Configuration configuration;
 
     public InputField inputField;
+    public bool IsAutorizeServer;
 
     PlayFabAuthService _authService;
 
@@ -45,7 +46,7 @@ public class PlayFabAuthManager : MonoBehaviour
         Debug.Log($"Login successful, login id: {loginResult.PlayFabId}");
         playerSettings.PlayFabID = loginResult.PlayFabId;
         connectButton.interactable = true;
-        RequestMultiplayerServer();
+        if (IsAutorizeServer)RequestMultiplayerServer();
     }
 
     public void ChangeToMainScene()

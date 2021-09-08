@@ -43,6 +43,7 @@ namespace All.Controllers
             else
             {
                 player = Instantiate(Character.GlobalPLayer, position, rotation);
+                //player.SetTargetObject();
             }
 
             player.SetID(id);;

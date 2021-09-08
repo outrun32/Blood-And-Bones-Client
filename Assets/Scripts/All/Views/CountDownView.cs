@@ -9,6 +9,10 @@ namespace All.Views
         [SerializeField] private Text _countText;
         [SerializeField] private Image _counterImage;
 
+        public void SetText(string value)
+        {
+            _countText.text = value;
+        }
         public void SetCount(int value)
         {
             _countText.text = (value).ToString();

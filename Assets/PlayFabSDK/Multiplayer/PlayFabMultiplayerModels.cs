@@ -2671,7 +2671,7 @@ namespace PlayFab.MultiplayerModels
         /// <summary>
         /// The region the multiplayer servers to list.
         /// </summary>
-        public string Region;
+        public AzureRegion Region;
         /// <summary>
         /// The skip token for the paged request.
         /// </summary>

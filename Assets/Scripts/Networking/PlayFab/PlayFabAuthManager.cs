@@ -45,9 +45,10 @@ public class PlayFabAuthManager : MonoBehaviour
         Debug.Log($"Login successful, login id: {loginResult.PlayFabId}");
         playerSettings.PlayFabID = loginResult.PlayFabId;
         connectButton.interactable = true;
-        RequestMultiplayerServer();
+        //RequestMultiplayerServer();
+        ListMultiplayerServers();
     }
-
+    
     public void ChangeToMainScene()
     {
         SceneManager.LoadScene("Main");
@@ -66,10 +67,34 @@ public class PlayFabAuthManager : MonoBehaviour
     private void OnRequestMultiplayerServer(RequestMultiplayerServerResponse response)
     {
         Debug.Log(response.IPV4Address);
+        Debug.Log(response.SessionId);
+        foreach (Port port in response.Ports)
+        {
+            Debug.Log(port.Num);
+        }
     }
 
     private void OnRequestMultiplayerServerError(PlayFabError error)
     {
         Debug.LogError($"Error requesting multiplayer server: {error}");
     }
+
+    private void ListMultiplayerServers()
+    {
+        ListMultiplayerServersRequest requestData = new ListMultiplayerServersRequest();
+        requestData.BuildId = configuration.buildID;
+        requestData.Region = AzureRegion.NorthEurope;
+        PlayFabMultiplayerAPI.ListMultiplayerServers(requestData, OnListMultiplayerServers, OnListMultiplayerServerError);
+    }
+
+    private void OnListMultiplayerServers(ListMultiplayerServersResponse response)
+    {
+        Debug.Log(response.MultiplayerServerSummaries);
+    }
+
+    private void OnListMultiplayerServerError(PlayFabError error)
+    {
+        Debug.LogError($"Error retreiving servers list: {error}");
+    }
+    
 }

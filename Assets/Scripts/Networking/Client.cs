@@ -321,7 +321,9 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerInfo, ClientHandle.PlayerInfo},
             { (int)ServerPackets.playerDeath, ClientHandle.PlayerDeath},
             { (int)ServerPackets.setTimerCounter, ClientHandle.SetCounterTimer},
-            { (int)ServerPackets.startSession, ClientHandle.StartSession}
+            { (int)ServerPackets.startSession, ClientHandle.StartSession},
+            { (int)ServerPackets.endSession, ClientHandle.EndSession},
+            { (int)ServerPackets.setTeam, ClientHandle.SetTeam},
         };
         Debug.Log("Initialized packets.");
     }

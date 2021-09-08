@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Net;
+using All.Modes;
 using Networking;
+using PlayFab.Internal;
 
 public class ClientHandle : MonoBehaviour
 {
@@ -36,13 +38,50 @@ public class ClientHandle : MonoBehaviour
 
     public static void SetCounterTimer(Packet _packet)
     {
+        int id = _packet.ReadInt();
         int count = _packet.ReadInt();
-        GameManager.Instance.SetCountDownTimer(count);
+        GameManager.Instance.SetCountDownTimer(id, count);
     }
 
     public static void StartSession(Packet _packet)
     {
         GameManager.Instance.StartSession();
+    }
+
+    public static void SetTeam(Packet packet)
+    {
+        int id = packet.ReadInt();
+        bool isRed = packet.ReadBool();
+        if (GameManager.CheckPlayer(id))GameManager.Players[id].SetTeam(isRed);
+    }
+    public static void EndSession(Packet _packet)
+    {
+        Dictionary<string, PlayerDataModel> blue = new Dictionary<string, PlayerDataModel>(),
+                                            red = new Dictionary<string, PlayerDataModel>();
+        int count = _packet.ReadInt();
+        Debug.Log("Blue");
+        for (int i = 0; i < count; i++)
+        {
+            string name = _packet.ReadString();
+            int killCount = _packet.ReadInt();
+            int deathCount = _packet.ReadInt();
+            float score = _packet.ReadInt();
+            blue.Add(name, new PlayerDataModel(score,killCount,deathCount));
+            Debug.Log($"{name}, kills = {killCount}, death = {deathCount}, score = {score}");
+        }
+        count = _packet.ReadInt();
+        Debug.Log("Red");
+        for (int i = 0; i < count; i++)
+        {
+            string name = _packet.ReadString();
+            int killCount = _packet.ReadInt();
+            int deathCount = _packet.ReadInt();
+            float score = _packet.ReadInt();
+            red.Add(name, new PlayerDataModel(score,killCount,deathCount));
+            
+            Debug.Log($"{name}, kills = {killCount}, death = {deathCount}, score = {score}");
+        }
+        GameManager.Instance.EndSession(red,blue);
     }
     public static void PlayerPosition(Packet _packet)
     {

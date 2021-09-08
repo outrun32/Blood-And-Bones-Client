@@ -16,6 +16,7 @@ public class PlayFabAuthManager : MonoBehaviour
     public Configuration configuration;
 
     public InputField inputField;
+    public bool IsAutorizeServer;
 
     PlayFabAuthService _authService;
 

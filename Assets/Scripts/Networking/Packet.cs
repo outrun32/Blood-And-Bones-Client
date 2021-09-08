@@ -15,7 +15,9 @@ public enum ServerPackets
     playerInfo,
     playerDeath,
     setTimerCounter,
-    startSession
+    startSession,
+    endSession,
+    setTeam
 }
 
 /// <summary>Sent from client to server.</summary>

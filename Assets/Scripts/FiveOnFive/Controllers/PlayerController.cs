@@ -8,6 +8,7 @@ namespace FiveOnFive.Controllers
     {
     
         private bool _isAim = false;
+        private bool _isRed;
         private float _maxHealth, _health, _maxMana, _mana;
         private bool _IsDeath = false;
         private Transform _aimTarget;
@@ -29,8 +30,8 @@ namespace FiveOnFive.Controllers
         [SerializeField] private Animator _animator;
         [SerializeField] private PlayerManager _playerManager;
         [SerializeField] private ClientPlayerController _clientPlayerController;
-    
         [SerializeField] public AnimationController AnimationController;
+        
         private HudController _hudController;
         public PlayerManager PlayerManager => _playerManager;
         public InputModel InputModel
@@ -99,10 +100,15 @@ namespace FiveOnFive.Controllers
                 }
             }
         }
-
+        
         public Vector3 GetForward(Vector3 position)
         {
             return new Vector3(position.normalized.x, transform.forward.y, position.normalized.z);
+        }
+
+        public void SetTeam(bool isRed)
+        {
+            _isRed = isRed;
         }
         public void SetInputViewMobile(InputViewMobile value)
         {
@@ -207,20 +213,5 @@ namespace FiveOnFive.Controllers
             }
             _playerManager.DeathEvent -= Death;
         }
-  
-        public void SetStartInfo(float maxHealth, float maxMana, float health,  float mana)
-        {
-            _maxHealth = maxHealth;
-            _health = health;
-            _maxMana = maxMana;
-            _mana = mana;
-        }
-
-        public void SetInfo(float health,float mana)
-        {
-            _health = health;
-            _mana = mana;
-        }
-    
     }
 }

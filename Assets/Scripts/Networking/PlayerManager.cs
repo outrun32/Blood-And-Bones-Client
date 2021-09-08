@@ -12,14 +12,25 @@ namespace Networking
     {
         private int _id;
         private string _username;
+        public bool IsRed;
         [SerializeField] private bool _usernameIsvizible;
         [SerializeField] private ClientPlayerController _clientController; 
         [SerializeField] private AnimationController _animationController;
         [SerializeField] private Text _usernameText;
         [SerializeField] private HudController _hud;
+        [SerializeField] private LookAtObject _lookAtObject;
         public event GetStartInfo GetStartInfoEvent;
         public event GetInfo GetInfoEvent;
         public event ReturnVoid DeathEvent;
+        public void SetTeam(bool isRed)
+        {
+            IsRed = isRed;
+        }
+
+        public void SetTargetObject(Transform target)
+        {
+            _lookAtObject.SetTarget(target);
+        }
         public void SetHud(HudController hudController)
         {
             _hud = hudController;
@@ -43,13 +54,13 @@ namespace Networking
 
         public void SetStartInfo(float maxHealth, float maxMana, float startHealth, float startMana)
         {
-            Debug.Log($"Start MH = {maxHealth}, MM = {maxMana}, SH = {startHealth}, SM = {startMana}");
+            //Debug.Log($"Start MH = {maxHealth}, MM = {maxMana}, SH = {startHealth}, SM = {startMana}");
             GetStartInfoEvent?.Invoke(maxHealth, maxMana,startHealth, startMana);
             _hud.Init(maxHealth, maxMana,startHealth, startMana);
         }
         public void SetInfo(float health, float mana)
         {
-            Debug.Log($"SetInfo H = {health}, M = {mana}");
+            //Debug.Log($"SetInfo H = {health}, M = {mana}");
             GetInfoEvent?.Invoke(health, mana);
             _hud.UpdateImages(health, mana);
         }
@@ -64,7 +75,7 @@ namespace Networking
 
         public void Death()
         {
-            Debug.Log("Death");
+            //Debug.Log("Death");
             DeathEvent?.Invoke();
             StartCoroutine(DeathCoroutine());
         }

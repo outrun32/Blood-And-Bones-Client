@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61b9e974cd6ebcb49a2e5746b3e77e7b, type: 3}
   m_Name: Knight
   m_EditorClassIdentifier: 
-  LocalPlayer: {fileID: 4733851530750100191, guid: fba626f8406a33140aaedb3a09d4b2d6, type: 3}
-  GlobalPLayer: {fileID: 1898050353326788722, guid: ea86fb40f655414409b6514f68ee5d57, type: 3}
+  LocalPlayer: {fileID: 5208617729113219069, guid: 60eaed2ca0bd0414c8d1ff58ddb5b8a9, type: 3}
+  GlobalPLayer: {fileID: 7451737230297058407, guid: ffb9f1cdd1014804b9be0dedf710bf46, type: 3}
   SpawnIndex: 0
   MaxHealth: 100
   StartHealth: 100

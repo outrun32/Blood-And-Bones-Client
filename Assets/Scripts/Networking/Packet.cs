@@ -197,17 +197,37 @@ public class Packet : IDisposable
         public void Write(InputModel value)
         {
             Write(value.JoystickAxis);
-            Write(value.rotation);
+            Write(value.CameraAngle);
             Write(value.IsJumping);
             Write(value.IsAttacking);
             Write(value.IsBlocking);
             Write(value.IsSuperAtacking);
             Write(value.IsStrafing);
-            Write(value.ISat);
+            Write(value.IsSat);
+            Write(value.IsAim);
         }
     #endregion
 
     #region Read Data
+
+    public enum DataType
+    {
+        integer,
+        boolean,
+        floatVar,
+    }
+
+    public object Read(DataType dataType = DataType.boolean,bool _moveReadPos = true)
+    {
+        switch (dataType)
+        {
+            case DataType.integer: return ReadInt(_moveReadPos);
+            case DataType.boolean: return ReadBool(_moveReadPos);
+            case DataType.floatVar: return ReadFloat(_moveReadPos);
+        }
+        return null;
+    }
+    
     /// <summary>Reads a byte from the packet.</summary>
     /// <param name="_moveReadPos">Whether or not to move the buffer's read position.</param>
     public byte ReadByte(bool _moveReadPos = true)
@@ -401,7 +421,29 @@ public class Packet : IDisposable
         /// <returns>Vector3</returns>
         public AnimationModel ReadAnimationModel(bool _moveReadPos = true)
         {
-            return new AnimationModel(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadInt(_moveReadPos), ReadInt(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos), ReadBool(_moveReadPos),ReadBool(_moveReadPos));
+            return new AnimationModel(
+                (float)Read(DataType.floatVar,_moveReadPos),
+                (float)Read(DataType.floatVar, _moveReadPos),
+                (float)Read(DataType.floatVar, _moveReadPos),
+                (float)Read(DataType.floatVar, _moveReadPos),
+                (float)Read(DataType.floatVar, _moveReadPos),
+                (bool)Read(DataType.boolean, _moveReadPos),
+                (bool)Read(DataType.boolean, _moveReadPos),
+                (int)Read(DataType.integer, _moveReadPos),
+                (float)Read(DataType.floatVar, _moveReadPos),
+                (bool)Read(DataType.boolean, _moveReadPos),
+                (bool)Read(DataType.boolean, _moveReadPos),
+                (bool)Read(DataType.boolean, _moveReadPos),
+                (bool)Read(DataType.boolean, _moveReadPos),
+                (bool)Read(DataType.boolean, _moveReadPos),
+                (bool)Read(DataType.boolean, _moveReadPos),
+                (bool)Read(DataType.boolean, _moveReadPos),
+                (bool)Read(DataType.boolean, _moveReadPos),
+                (bool)Read(DataType.boolean, _moveReadPos),
+                (float)Read(DataType.floatVar, _moveReadPos),
+                (float)Read(DataType.floatVar, _moveReadPos),
+                (float)Read(DataType.floatVar, _moveReadPos),
+                (float)Read(DataType.floatVar, _moveReadPos));
         }
     #endregion
 

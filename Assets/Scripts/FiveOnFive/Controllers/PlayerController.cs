@@ -16,6 +16,7 @@ namespace FiveOnFive.Controllers
    
         [SerializeField] private float _speedRotation = 10;
         [SerializeField] private Vector3 cameraTransformForward;
+        [SerializeField] private Vector3 cameraTransformPosition;
         [SerializeField] private Vector2 _cameraRotationAccelerate;
         [Header("Inputs")]
         [SerializeField] private bool _isMobile = true;
@@ -38,7 +39,9 @@ namespace FiveOnFive.Controllers
         {
             get
             {
-                _inputModel.rotation = transform.rotation;
+                cameraTransformForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
+                _inputModel.CameraAngle =  Vector3.Angle(transform.forward,cameraTransformForward) * Mathf.Sign(Vector3.Dot(transform.up,Vector3.Cross(transform.forward,cameraTransformForward)));
+                //_inputModel.rotation = transform.rotation;
                 return _inputModel;
             }
         }
@@ -80,9 +83,9 @@ namespace FiveOnFive.Controllers
                     gameObject.transform.LookAt(_transformPosition + Vector3.Lerp(transform.forward,
                         GetForward(_aimTarget.position - _transformPosition), _speedRotation * Time.deltaTime));
                 }
-                else
+                /*else
                     gameObject.transform.LookAt(_transformPosition + Vector3.Lerp(transform.forward,
-                        cameraTransformForward.normalized, _speedRotation * Time.deltaTime));
+                        cameraTransformForward.normalized, _speedRotation * Time.deltaTime));*/
             }
         }
 
@@ -137,8 +140,7 @@ namespace FiveOnFive.Controllers
                     if (axis.magnitude > 0.1f) _inputModel.JoystickAxis = axis;
                     else _inputModel.JoystickAxis = Vector2.zero;
                     if(_inputModel.JoystickAxis != Vector2.zero)
-                        cameraTransformForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);;
-                    AnimationController.SetIsGo(axis.magnitude > 0.1f);
+                        cameraTransformForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
                     break;
                 case AxesName.CameraMovePressed:
                     if (!_isAim)
@@ -159,8 +161,7 @@ namespace FiveOnFive.Controllers
 
         void CheckButtons(ButtonsName nameButton, ButtonState state)
         {
-            Debug.Log(nameButton);
-            Debug.Log(state);
+            
             switch (nameButton)
             {
                 case ButtonsName.Atack:
@@ -170,6 +171,7 @@ namespace FiveOnFive.Controllers
                     _inputModel.IsJumping = state == ButtonState.OnDown;
                     break;
                 case ButtonsName.Aim:
+                    
                     if (_isAim)
                     {
                         NotAim();
@@ -182,17 +184,22 @@ namespace FiveOnFive.Controllers
                 case ButtonsName.Block:
                     _inputModel.IsBlocking = state == ButtonState.OnDown;
                     break;
+                case ButtonsName.Dodging:
+                    _inputModel.IsStrafing = state == ButtonState.OnDown;
+                    break;
             }
         }
         public void Aim(Transform obj)
         {
             _aimTarget = obj;
+            _inputModel.IsAim = true;
             _isAim = true;
             _freeLookCameraController.gameObject.SetActive(false);
             _virtualCameraController.gameObject.SetActive(true);
         }
         public void NotAim()
         {
+            _inputModel.IsAim = false;
             _isAim = false;
             _freeLookCameraController.gameObject.SetActive(true);
             _virtualCameraController.gameObject.SetActive(false);

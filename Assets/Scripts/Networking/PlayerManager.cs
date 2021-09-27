@@ -64,7 +64,7 @@ namespace Networking
             GetInfoEvent?.Invoke(health, mana);
             _hud.UpdateImages(health, mana);
         }
-        public void SeAnimation(AnimationModel model)
+        public void SetSeAnimation(AnimationModel model)
         {
             _animationController.NUpdate(model);
         }

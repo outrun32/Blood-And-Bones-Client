@@ -12,7 +12,8 @@ public enum ButtonsName{
     Atack,
     Block,
     Aim,
-    CameraMove
+    CameraMove,
+    Dodging
 }
 
 public enum ButtonState{

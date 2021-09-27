@@ -87,7 +87,6 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         Vector3 position = _packet.ReadVector3();
-
         if (GameManager.CheckPlayer(_id))GameManager.Players[_id].SetPosition(position);
     }
 
@@ -95,7 +94,6 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         Quaternion _rotation = _packet.ReadQuaternion();
-
         if (GameManager.CheckPlayer(_id))GameManager.Players[_id].SetRotation(_rotation);
     }
 
@@ -110,7 +108,7 @@ public class ClientHandle : MonoBehaviour
     {
         int _id = _packet.ReadInt();
         AnimationModel _animationModel = _packet.ReadAnimationModel();
-        if (GameManager.CheckPlayer(_id)) GameManager.Players[_id].SeAnimation(_animationModel);
+        if (GameManager.CheckPlayer(_id)) GameManager.Players[_id].SetSeAnimation(_animationModel);
     }
     public static void PlayerInfo(Packet _packet)
     {

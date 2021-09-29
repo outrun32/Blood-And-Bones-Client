@@ -7,11 +7,14 @@ using System;
 
 public class Client : MonoBehaviour
 {
+
+    public SNetworkSettings networkSettings;
     public static Client instance;
     public static int dataBufferSize = 4096;
 
     public string ip;
-    public int port;
+    public int portTCP;
+    public int portUDP;
     public int myId = 0;
     public TCP tcp;
     public UDP udp;
@@ -34,6 +37,22 @@ public class Client : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
+=======
+    private void Start()
+    {
+        ip = networkSettings.IP;
+        portTCP = networkSettings.PortTCP;
+        portUDP = networkSettings.PortUDP;
+        if (AutoStart) ConnectToServer();
+    }
+
+    public void SetPlayFabID(string _id)
+    {
+        PlayfabID = _id;
+    }
+
+>>>>>>> Stashed changes
     public void SetIP(string IP)
     {
         ip = IP;
@@ -41,7 +60,7 @@ public class Client : MonoBehaviour
 
     public void SetPort(string _port)
     {
-        port = int.Parse(_port);
+        //port = int.Parse(_port);
     }
 
     private void InitializePorts()
@@ -81,7 +100,7 @@ public class Client : MonoBehaviour
             };
 
             receiveBuffer = new byte[dataBufferSize];
-            socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
+            socket.BeginConnect(instance.ip, instance.portTCP, ConnectCallback, socket);
         }
 
         private void ConnectCallback(IAsyncResult _result)
@@ -202,7 +221,7 @@ public class Client : MonoBehaviour
 
         public UDP()
         {
-            endPoint = new IPEndPoint(IPAddress.Parse(instance.ip), instance.port);
+            endPoint = new IPEndPoint(IPAddress.Parse(instance.ip), instance.portUDP);
         }
         
         public void Connect(int _localPort)
@@ -293,7 +312,16 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation },
             { (int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected},
             { (int)ServerPackets.playerAnimation, ClientHandle.PlayerAnimation},
+<<<<<<< Updated upstream
             { (int)ServerPackets.playerInfo, ClientHandle.PlayerInfo}
+=======
+            { (int)ServerPackets.playerInfo, ClientHandle.PlayerInfo},
+            { (int)ServerPackets.playerDeath, ClientHandle.PlayerDeath},
+            { (int)ServerPackets.setTimerCounter, ClientHandle.SetCounterTimer},
+            { (int)ServerPackets.startSession, ClientHandle.StartSession},
+            { (int)ServerPackets.endSession, ClientHandle.EndSession},
+            { (int)ServerPackets.setTeam, ClientHandle.SetTeam}
+>>>>>>> Stashed changes
         };
         Debug.Log("Initialized packets.");
     }
